@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}Attribuer un projet{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-75'>
+            <h2 class='fw-bold mx-auto text-center'>Attribuer un projet</h2><br>
+            {{ form_start(giveProjectForm) }}
+                {{ form_row(giveProjectForm.main_student) }}
+                {{ form_row(giveProjectForm.project) }}
+                <div class='mt-3 d-grid gap-2 d-md-flex justify-content-md-end'>
+                    <button type='submit' class='btn btn-primary'>Attribuer</button>
+                </div>
+            {{ form_end(giveProjectForm) }}
+            <a href='{{ path('app.admin.projectsReadAttributed') }}' class='btn btn-primary'>Retour</a>
+        </div>
+    </div>
+{% endblock %}

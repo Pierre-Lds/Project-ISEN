@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% block title %}Voir les binômes{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-75'>
+            <h2 class='fw-bold mx-auto text-center'>Voir les binômes</h2><br>
+            {% for message in app.flashes('success') %}
+                <div class='alert alert-success'>{{ message }}</div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class='alert alert-danger'>{{ message }}</div>
+            {% endfor %}
+            <table class='table table-stripped mb-5'>
+                <thead>
+                <tr>
+                    <th scope='col'>Étudiant n°1</th>
+                    <th scope='col'>Étudiant n°2</th>
+                    {% if app.user.IsAdmin %}
+                        <th scope='col'>Actions</th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for student in students %}
+                    {% if student.getIdPair() != null and student.getIsMainStudent() == true %}
+                        <tr>
+                            <td>{{ student.getFirstName()~" "~student.getLastName() }}</td>
+                            <td>{{ student.getIdPair() }}</td>
+                            {% if app.user.IsAdmin %}
+                                <td>
+                                    <form method='post' action='{{ path('app.admin.pairDelete',{id: student.id}) }}' onsubmit='return confirm("Supprimer le binôme ?")' style='display: inline-block'>
+                                        <input type='hidden' name='_method' value='DELETE'>
+                                        <input type='hidden' name='_token' value='{{ csrf_token('delete' ~ student.id) }}'>
+                                        <button class='btn btn-secondary'>Supprimer</button>
+                                    </form>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+            {% if app.user.IsAdmin %}
+                <a href='{{ path('app.admin.pairCreate') }}' class='btn btn-primary mb-5'>Ajouter un binôme</a>
+            {% endif %}
+            <h2 class='fw-bold mx-auto text-center'>Voir les étudiants sans binômes</h2><br>
+            <table class='table table-stripped mb-5'>
+                <tbody>
+                {% for student in students %}
+                    {% if student.getIdPair() == null %}
+                        <tr>
+                            <td> {{ student.getFirstName()~" "~student.getLastName() }} </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

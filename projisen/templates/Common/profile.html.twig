@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mon profil{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-75'>
+            <h2 class='fw-bold mx-auto text-center'>Mon profil</h2><br>
+            <h4 class='fw-bold mx-auto'>Mes informations</h4>
+            <table class='table my-5'>
+                <tbody class='border'>
+                <tr>
+                    <th scope='row' class='bg-light border'>Prénom</th>
+                    <td>{{ app.user.getFirstName() }}</td>
+                    <th scope='row' class='bg-light border'>Nom</th>
+                    <td>{{ app.user.getLastName() }}</td>
+                </tr>
+                <tr>
+                    <th scope='row' class='bg-light border'>Nom d'utilisateur</th>
+                    <td>{{ app.user.getUsername() }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <h4 class='fw-bold mx-auto'>Changer mon mot de passe</h4>
+            <form class='container' action='{{ path('app.profile') }}' method='post'>
+                <div class='mb-3'>
+                    <label for='password' class='form-label'>Nouveau mot de passe</label>
+                    <input type='password' id='password' name='_password' class='form-control'>
+                </div>
+                <div class='mb-3'>
+                    <button type='submit' class='btn btn-primary'>Envoyer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

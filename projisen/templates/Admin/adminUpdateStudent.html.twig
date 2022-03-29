@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}Éditer un étudiant{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-75'>
+            <h2 class='fw-bold mx-auto text-center'>Éditer un étudiant</h2><br>
+            {{ form_start(studentForm, {'attr': {'novalidate' : 'novalidate'}}) }}
+            <div class='row'>
+                <div class='col-md-6'>{{ form_row(studentForm.first_name) }}</div>
+                <div class='col-md-6'>{{ form_row(studentForm.last_name) }}</div>
+            </div>
+            {{ form_row(studentForm.username, {'attr':{'readonly':'true', 'required':'false'}}) }}
+            {{ form_row(studentForm.password, {'attr':{'readonly':'true', 'required':'false'}}) }}
+            <div class='row'>
+                <div class='col-md-6'>{{ form_row(studentForm.graduation_year) }}</div>
+                <div class='col-md-6'>{{ form_row(studentForm.id_professional_domain) }}</div>
+            </div>
+            {{ form_row(studentForm.is_main_student) }}
+            {{ form_row(studentForm.id_pair) }}
+            <div class='mt-3 d-grid gap-2 d-md-flex justify-content-md-end'>
+                <button type='submit' class='btn btn-primary'>Éditer</button>
+            </div>
+            {{ form_end(studentForm) }}
+            <a href='{{ path('app.admin.studentsRead') }}' class='btn btn-primary'>Retour</a>
+        </div>
+    </div>
+{% endblock %}

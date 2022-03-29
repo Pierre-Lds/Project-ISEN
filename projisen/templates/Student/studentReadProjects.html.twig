@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-100'>
+            <h2 class='fw-bold mx-auto text-center'>Voir les projets</h2><br>
+            <table class='table table-striped mb-5'>
+                <thead>
+                <tr>
+                    <th scope='col'>#</th>
+                    <th scope='col' style='width: 25%'>Title</th>
+                    <th scope='col'>Enseignant</th>
+                    <th scope='col'>Thématique</th>
+                    <th scope='col'>Domaines professionnels</th>
+                    <th scope='col'>Attribué</th>
+                    <th scope='col'>Année</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%  for project in projects %}
+                    <tr>
+                        <th scope='row'>{{ project.id }}</th>
+                        <td>{{ project.title }}</td>
+                        <td>{{ project.idteacher }}</td>
+                        <td>{{ project.idthematic }}</td>
+                        <td>
+                            {% for professionalDomain in project.getIdProfessionalDomain() %}
+                                {{ professionalDomain }}
+                                {% if professionalDomain != project.getIdProfessionalDomain()|last %},{% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>{% if project.istaken == 1 %}Oui{% else %}Non{% endif %}</td>
+                        <td>{{ project.year }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        let tds = document.getElementsByTagName("tbody")[0].querySelectorAll("td:not(:last-child), th");
+        tds.forEach(td => {
+            td.addEventListener('click', event => {
+                let id = td.parentNode.children[0].textContent;
+                let url = "{{ path('app.student.projectRead',{id: 'project_id'}) }}";
+                url = url.replace('project_id',id);
+                location.href = url;
+            });
+        });
+    </script>
+    <style>
+        tbody td:not(:last-child), tbody th {
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}

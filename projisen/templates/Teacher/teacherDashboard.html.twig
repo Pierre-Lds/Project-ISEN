@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% block title %}Espace enseignant{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-75'>
+            <h2 class='fw-bold mx-auto text-center mb-3'>Espace enseignant</h2>
+            <h5 class='fw-bold mx-auto mb-3 text-start'>Projets</h5>
+            <nav class='d-grid gap-3'>
+                <a href='{{ path('app.teacher.projectsRead') }}' class='btn btn-hover-light d-flex gap-3 py-2 px-3 lh-sm bg-light border'>
+                    <i class='bi bi-eye-fill' style='font-size: 2em;'></i>
+                    <div class='text-start'>
+                        <strong class='d-block'>Consulter les projets</strong>
+                        <small>Consulter la liste des projets publiés.</small>
+                    </div>
+                </a>
+                <a href='{{ path('app.teacher.projectCreate') }}' class='btn btn-hover-light d-flex gap-3 py-2 px-3 lh-sm bg-light border'>
+                    <i class='bi bi-file-plus-fill' style='font-size: 2em;'></i>
+                    <div class='text-start'>
+                        <strong class='d-block'>Créer un projet</strong>
+                        <small>Ajouter un nouveau projet.</small>
+                    </div>
+                </a>
+            </nav>
+            <h5 class='fw-bold mx-auto my-3 text-start'>Binômes</h5>
+            <nav class='d-grid gap-3'>
+                <a href='{{ path('app.teacher.pairsRead') }}' class='btn btn-hover-light d-flex gap-3 py-2 px-3 lh-sm bg-light border'>
+                    <i class='bi bi-eye-fill' style='font-size: 2em;'></i>
+                    <div class='text-start'>
+                        <strong class='d-block'>Voir les binômes</strong>
+                        <small>Voir la liste des binômes et étudiants.</small>
+                    </div>
+                </a>
+            </nav>
+            <h5 class='fw-bold mx-auto my-3 text-start'>Choix & affectations</h5>
+            <nav class='d-grid gap-3'>
+                <a href='{{ path('app.teacher.projectsReadWishes') }}' class='btn btn-hover-light d-flex gap-3 py-2 px-3 lh-sm bg-light border'>
+                    <i class='bi bi-bookmark-heart-fill' style='font-size: 2em;'></i>
+                    <div class='text-start'>
+                        <strong class='d-block'>Consulter les choix des binômes</strong>
+                        <small>Consulter la liste des projets choisis par les binômes.</small>
+                    </div>
+                </a>
+                <a href='{{ path('app.teacher.projectsReadAttributed') }}' class='btn btn-hover-light d-flex gap-3 py-2 px-3 lh-sm bg-light border'>
+                    <i class='bi bi-bookmark-check-fill' style='font-size: 2em;'></i>
+                    <div class='text-start'>
+                        <strong class='d-block'>Consulter les affectation des projets</strong>
+                        <small>Consulter la liste des projets attribués aux binômes.</small>
+                    </div>
+                </a>
+                <a href='{{ path('app.teacher.pairsReadWithoutProject') }}' class='btn btn-hover-light d-flex gap-3 py-2 px-3 lh-sm bg-light border'>
+                    <i class='bi bi-bookmark-x-fill' style='font-size: 2em;'></i>
+                    <div class='text-start'>
+                        <strong class='d-block'>Consulter les binômes sans affectation</strong>
+                        <small>Consulter la liste des binômes sans projet attribué.</small>
+                    </div>
+                </a>
+            </nav>
+        </div>
+    </div>
+{% endblock %}

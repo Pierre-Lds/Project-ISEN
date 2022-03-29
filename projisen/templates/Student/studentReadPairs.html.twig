@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block title %}Voir les binômes{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-75'>
+            {% for message in app.flashes('success') %}
+                <div class='alert alert-success'>{{ message }}</div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class='alert alert-danger'>{{ message }}</div>
+            {% endfor %}
+            <h2 class='fw-bold mx-auto text-center'>Voir les binômes</h2><br>
+            <table class='table table-stripped mb-5'>
+                <thead>
+                <tr>
+                    <th scope='col'>Étudiant n°1</th>
+                    <th scope='col'>Étudiant n°2</th>
+                    <th scope='col'>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for student in students %}
+                    {% if student.getIdPair() != null and student.getIsMainStudent() == true %}
+                        <tr>
+                            <td>{{ student.getFirstName()~" "~student.getLastName() }}</td>
+                            <td>{{ student.getIdPair() }}</td>
+                            <td> {% if app.user == student.getIdPair() or app.user == student %}
+                                <form method='post' action='{{ path('app.student.pairDelete',{id: student.id}) }}' onsubmit='return confirm("Supprimer le binôme ?")' style='display: inline-block'>
+                                    <input type='hidden' name='_method' value='DELETE'>
+                                    <input type='hidden' name='_token' value='{{ csrf_token('delete' ~ student.id) }}'>
+                                    <button class='btn btn-secondary'>Supprimer</button>
+                                </form>
+                            {% endif %}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+            <h2 class='fw-bold mx-auto text-center'>Voir les étudiants sans binômes</h2><br>
+            <table class='table table-stripped mb-5'>
+                <tbody>
+                {% for student in students %}
+                    {% if student.getIdPair() == null %}
+                        <tr>
+                            <td> {{ student.getFirstName()~" "~student.getLastName() }} </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

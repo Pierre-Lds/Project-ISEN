@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %}Déconnexion{% endblock %}
+{% block body %}
+    <div class='container mt-5'>
+        <div class='shadow p-3 rounded mx-auto w-50 text-center'>
+            <h2 class='fw-bold mx-auto'>Déconnexion</h2><br>
+            <p >Vous vous êtes déconnecté(e) correctement du service.<br> Vous pouvez vous connecter à nouveau <a href='{{ path('app.login') }}'>ici</a>.</p>
+        </div>
+    </div>
+{% endblock %}

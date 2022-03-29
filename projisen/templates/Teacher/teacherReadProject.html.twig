@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block title %}Voir le projet{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-100'>
+            <h2 class='fw-bold mx-auto text-center'>{{ project.title }}</h2><br>
+            <table class='table mb-5'>
+                <tbody class='border'>
+                <tr>
+                    <th scope='row' class='bg-light border'>Numéro</th>
+                    <td>{{ project.id }}</td>
+                    <th scope='row' class='bg-light border'>Titre</th>
+                    <td colspan='3'>{{ project.title }}</td>
+                </tr>
+                <tr>
+                    <th scope='row' class='bg-light border'>Enseignant</th>
+                    <td>{{ project.idteacher }}</td>
+                    <th scope='row' class='bg-light border'>Année</th>
+                    <td>{{ project.year }}</td>
+                    <th scope='row' class='bg-light border'>Attribué</th>
+                    <td>{% if project.istaken == 1 %}Oui{% else %}Non{% endif %}</td>
+                <tr>
+                    <th scope='row' class='bg-light border'>Domaines professionnels</th>
+                    <td colspan='5'>
+                        {% for professionalDomain in project.getIdProfessionalDomain() %}
+                            {{ professionalDomain }}
+                            {% if professionalDomain != project.getIdProfessionalDomain()|last %}
+                                ,
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th scope='row' class='bg-light border'>Domaines techniques</th>
+                    <td colspan='5'>{{ project.technicaldomains }}</td>
+                </tr>
+                <tr>
+                    <th scope='row' class='bg-light border'>Thématique</th>
+                    <td colspan='5'>{{ project.idthematic }}</td>
+                </tr>
+                <tr>
+                    <th scope='row' class='bg-light border'>Description</th>
+                    <td colspan='5' style='word-break: break-word'><p>{{ project.description()|nl2br }}</p></td>
+                </tr>
+                </tbody>
+            </table>
+            <a href='{{ path('app.teacher.projectsRead') }}' class='btn btn-primary'>Revenir à la liste</a>
+        </div>
+    </div>
+{% endblock %}

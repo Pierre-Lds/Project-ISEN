@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+{% block title %}Accueil - Proj'ISEN{% endblock %}
+{% block stylesheets %}
+    <link rel='stylesheet' href='{{ asset('styles/Unlogged/homepage.css') }}'>
+{% endblock %}
+{% block body %}
+    {# Introduction #}
+    <div class='container col-xxl-8 px-4 py-5'>
+        <div class='row flex-lg-row-reverse align-items-center g-5 py-5'>
+            <div class='col-10 col-sm-8 col-lg-6'>
+                <img src='{{ asset('ressources/img/isen-nantes.png') }}' class='d-block mx-lg-auto img-fluid' alt='Bootstrap Themes' loading='lazy' width='700' height='500'>
+            </div>
+            <div class='col-lg-6'>
+                <h1 class='display-5 fw-bold lh-1 mb-3'>Gérez facilement vos projets M1 avec Proj'ISEN !</h1>
+                <p class='lead'>Que vous soyez étudiant, enseignant ou administrateur, cette application web est faire pour vous ! Avec Proj'ISEN, créez vos projets et attribuez les facilement. Notre grand nombre de fonctionnalités permettent à notre application de s'adapter à vos besoins pour une expérience inoubliable.</p>
+                <div class='d-grid gap-2 d-md-flex justify-content-md-start'>
+                    <a href='{{ path('app.homepage') }}#discover' class='btn btn-primary btn-lg px-4 me-md-2'>Découvrir</a>
+                    <a href='{{ path('app.login') }}' class='btn btn-primary btn-lg px-4 me-md-2'>Commencer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='p-3 mb-2 bg-dark'></div>
+    {# Pros #}
+    <div class='container px-4 py-5' id='hanging-icons'>
+        <div class='row g-4 row-cols-1 row-cols-lg-3' id='discover'>
+
+            <div class='col d-flex align-items-start'>
+                <div class='icon-square bg-light text-dark flex-shrink-0 me-3'>
+                    <i class='bi bi-sliders'></i>
+                </div>
+                <div>
+                    <h2 class='mb-2'>Une prise en main accessible</h2>
+                    <p class='justify'>Grâce à son interface minimaliste et aux parcours utilisateurs soigneusement étudiés, laissez-vous guider dans la gestion de l'attribution de vos projets.</p>
+                    <a href='{% if is_granted('IS_AUTHENTICATED_FULLY') == true %}
+                        {% if 'ROLE_ADMIN' in app.user.roles %}{{ path('app.admin.dashboard') }}{% endif %}
+                        {% if 'ROLE_TEACHER' in app.user.roles %}{{ path('app.teacher.dashboard') }}{% endif %}
+                        {% if 'ROLE_STUDENT' in app.user.roles %}{{ path('app.student.dashboard') }}{% endif %}
+                    {% else %}{{ path('app.login') }}{% endif %}' class='btn btn-primary'>Commencer</a>
+                </div>
+            </div>
+
+            <div class='col d-flex align-items-start'>
+                <div class='icon-square bg-light text-dark flex-shrink-0 me-3'>
+                    <i class='bi bi-brush'></i>
+                </div>
+                <div>
+                    <h2 class='mb-2'>Une personnalisation complète</h2>
+                    <p>Afin de s'adapter au moindre de vos besoins, notre application se veut customisable au maximum. Administrateur, décidez comment créer des binômes, attribuer des projets...</p>
+                    <a href='{% if is_granted('IS_AUTHENTICATED_FULLY') == true %}
+                        {% if 'ROLE_ADMIN' in app.user.roles %}{{ path('app.admin.dashboard') }}{% endif %}
+                        {% if 'ROLE_TEACHER' in app.user.roles %}{{ path('app.teacher.dashboard') }}{% endif %}
+                        {% if 'ROLE_STUDENT' in app.user.roles %}{{ path('app.student.dashboard') }}{% endif %}
+                    {% else %}{{ path('app.login') }}{% endif %}' class='btn btn-primary'>Personnaliser</a>
+                </div>
+            </div>
+
+            <div class='col d-flex align-items-start'>
+                <div class='icon-square bg-light text-dark flex-shrink-0 me-3'>
+                    <i class='bi bi-file-text'></i>
+                </div>
+                <div>
+                    <h2 class='mb-2'>Une documentation détailléee</h2>
+                    <p class='justify'>Besoin de plus d'informations ? Notre documentation détaillée de notre application est détaillée ici. Vous pouvez également consulter les derniers changements.</p>
+                    <a href='{{ path('app.documentation') }}' class='btn btn-primary'>Lire à la documentation</a>
+                    <a href='{{ path('app.versions') }}' class='btn btn-primary'>Les versions</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class='p-3 mb-2 bg-dark'></div>
+    {# Team #}
+    <div class='py-5'>
+        <div class='container'>
+            <div class='row justify-content-center mb-4'>
+                <div class='col-md-7 text-center'>
+                    <h2 class='mb-3'>Une équipe professionnelle et expérimentée</h2>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col-lg-3 mb-4'></div>
+
+                <div class='col-lg-3 mb-4'>
+                    <div class='row text-center'>
+                        <div class='col-md-12'>
+                            <img src='{{ asset('ressources/img/pierre-landais.png') }}' alt='wrapkit' class='img-fluid rounded-circle w-50' />
+                        </div>
+                        <div class='col-md-12'>
+                            <div class='pt-2'>
+                                <h5 class='mt-4 font-weight-medium mb-0 fw-bold'>Pierre Landais</h5>
+                                <h6 class='subtitle mb-3 fw-bold text-muted'>Etudiant M1 Génie Logiciel ISEN Nantes</h6>
+                                <p class='text-muted'>Chef de projet et développeur PHP Symfony MySQL.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='col-lg-3 mb-4'>
+                    <div class='row text-center'>
+                        <div class='col-md-12'>
+                            <img src='{{ asset('ressources/img/tristan-roux.png') }}' alt='wrapkit' class='img-fluid rounded-circle w-50' />
+                        </div>
+                        <div class='col-md-12'>
+                            <div class='pt-2'>
+                                <h5 class='mt-4 font-weight-medium mb-0 fw-bold'>Tristan Roux</h5>
+                                <h6 class='subtitle mb-3 fw-bold text-muted'>Etudiant M1 Génie Logiciel ISEN Nantes</h6>
+                                <p class='text-muted'>Responsable de l'algorithmie en C++ et PHP Symfony.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class='p-3 mb-2 bg-dark'></div>
+{% endblock %}

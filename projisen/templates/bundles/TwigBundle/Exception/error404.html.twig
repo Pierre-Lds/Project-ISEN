@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+{% block title %}404 - Page introuvable{% endblock %}
+
+{# Algorithm #}
+{% set array = ["black","blue","brown","green","grey","light-blue","light-green","orange","pink","purple","red","salmon","yellow"]  %}
+{% if(random(100) ==1)%}
+    {% set value = "isen" %}
+{% else %}
+    {% set value = array[random(12)] %}
+{% endif %}
+
+{# Body #}
+{% block body %}
+    <div class='container mt-5'>
+        <div class='shadow p-3 rounded mx-auto w-75 text-center'>
+            <h2 class='fw-bold mx-auto'>Page non trouvée</h2>
+            <img src='{{ asset("/ressources/404/" ~ value ~ ".png") }}' alt='{{ value }}' class='w-25 h-25'>
+            <p >Il semblerait que la page demandée n'existe pas ou soit temporairement indisponible.</p>
+            <a href='{{ path('app.homepage') }}' class='btn btn-primary'>Retour à la page d'accueil</a>
+        </div>
+    </div>
+{% endblock %}

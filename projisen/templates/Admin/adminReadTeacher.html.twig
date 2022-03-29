@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}Voir le projet{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-100'>
+            <h2 class='fw-bold mx-auto text-center'>{{ staff.getFirstName()~" "~staff.getLastName() }}</h2>
+            <table class='table my-5'>
+                <tbody class='border'>
+                <tr>
+                    <th scope='row' class='bg-light border'>Prénom</th>
+                    <td>{{ staff.getFirstName() }}</td>
+                    <th scope='row' class='bg-light border'>Nom</th>
+                    <td>{{ staff.getLastName() }}</td>
+                </tr>
+                <tr>
+                    <th scope='row' class='bg-light border'>ID</th>
+                    <td>{{ staff.getUsername() }}</td>
+                    <th scope='row' class='bg-light border'>Admin</th>
+                    <td>{% if staff.getIsAdmin() == true %}Oui{% else %}Non{% endif %}</td>
+                </tr>
+                </tbody>
+            </table>
+            <a href='{{ path('app.admin.teachersRead') }}' class='btn btn-primary'>Revenir à la liste</a>
+        </div>
+    </div>
+{% endblock %}

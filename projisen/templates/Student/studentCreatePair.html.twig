@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}Choisir son binôme{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-75'>
+            <h2 class='fw-bold mx-auto text-center'>Choisir son binôme</h2><br>
+            {{ form_start(pairForm) }}
+            {{ form_row(pairForm.main_student) }}
+            {{ form_row(pairForm.second_student) }}
+            <div class='mt-3 d-grid gap-2 d-md-flex justify-content-md-end'>
+                <button type='submit' class='btn btn-primary'>Créer</button>
+            </div>
+            {{ form_end(pairForm) }}
+            <a href='{{ path('app.admin.pairsRead') }}' class='btn btn-primary'>Retour</a>
+        </div>
+    </div>
+{% endblock %}

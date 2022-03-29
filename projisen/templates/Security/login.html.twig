@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel='stylesheet' href='{{ asset('styles/Security/login.css') }}'>
+{% endblock %}
+{% block title %}Connexion{% endblock %}
+{% block body %}
+    <div class='container mt-5'>
+        <div class='row shadow p-3 mb-5 bg-body rounded'>
+            <div class='col'>
+                <h2 class='fw-bold'>Se connecter</h2>
+                {% if error %}
+                    <div class='alert alert-danger'>
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+                <form class='container' action='{{ path('app.login') }}' method='post'>
+                    <div class='mb-3'>
+                        <label for='username' class='form-label'>Nom d'utilisateur</label>
+                        <input type='text' class='form-control' id='username' name='_username' value='{{ lastUsername }}'>
+                    </div>
+                    <div class='mb-3'>
+                        <label for='password' class='form-label'>Mot de passe</label>
+                        <input type='password' id='password' name='_password' class='form-control'>
+                    </div>
+                    <div class='mb-3 form-check'>
+                        <input type='checkbox' class='form-check-input' id='exampleCheck1'>
+                        <label class='form-check-label' for='exampleCheck1'>Afficher le mot de passe</label>
+                    </div>
+                    <div class='mb-3'>
+                        <button type='submit' class='btn btn-primary'>Envoyer</button>
+                    </div>
+                </form>
+            </div>
+            <div class='col' id='login_cover'></div>
+        </div>
+    </div>
+{% endblock %}

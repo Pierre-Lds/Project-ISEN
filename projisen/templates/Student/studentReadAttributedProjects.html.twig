@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block title %}Voir les projets attribués{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-75'>
+            <h2 class='fw-bold mx-auto text-center'>Voir les projets attribués</h2><br>
+            <table class='table table-striped  my-5'>
+                <thead>
+                <tr>
+                    <th scope='col'>Étudiant #1</th>
+                    <th scope='col'>Étudiant #2</th>
+                    <th scope='col'>Projet</th>
+                    <th scope='col'>Enseignant</th>
+                    <th scope='col'>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for pair in pairs %}
+                    <tr>
+                        <td>{{ pair }}</td>
+                        <td>{{ pair.getIdPair() }}</td>
+                        <td>{{ pair.getIdProject() }}</td>
+                        <td>{{ pair.getIdProject().getIdTeacher() }}</td>
+                        <td>
+                            <form method='post' action='{{ path('app.admin.projectsUnattribute',{id: pair.getId()}) }}' onsubmit='return confirm("Oter le projet ?")' style='display: inline-block'>
+                                <input type='hidden' name='_method' value='DELETE'>
+                                <input type='hidden' name='_token' value='{{ csrf_token('delete' ~ pair.id) }}'>
+                                <button class='btn btn-secondary'>Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

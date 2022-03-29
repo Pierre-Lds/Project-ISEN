@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% form_theme thematicForm 'bootstrap_5_layout.html.twig' %}
+{% block title %}Gérer les thématiques{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-100'>
+            <h2 class='fw-bold mx-auto text-center mb-3'>Gestion des thématiques</h2>
+            {% for message in app.flashes('success') %}
+                <div class='alert alert-success'>{{ message }}</div>
+            {% endfor %}
+            <div class='row'>
+                <div class='col-md-8'>
+                    <h5 class='fw-bold mx-auto text-center mb-3'>Consulter</h5>
+                    <table class='table table-striped mb-5'>
+                        <thead>
+                        <tr>
+                            <th scope='col'>#</th>
+                            <th scope='col'>Nom</th>
+                            <th scope='col'>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for thematic in thematics %}
+                            <tr>
+                                <th scope='row'>{{ thematic.id }}</th>
+                                <td>{{ thematic.name }}</td>
+                                <td> {% if thematic.id != 1 %}
+                                    <form method='post' action='{{ path('app.admin.thematicDelete',{id: thematic.id}) }}' onsubmit='return confirm("Supprimer la thématique ?")' style='display: inline-block'>
+                                        <input type='hidden' name='_method' value='DELETE'>
+                                        <input type='hidden' name='_token' value='{{ csrf_token('delete' ~ thematic.id) }}'>
+                                        <button class='btn btn-secondary'>Supprimer</button>
+                                    </form>
+                                {% endif %} </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class='col-md-4'>
+                    <h5 class='fw-bold mx-auto text-center mb-3'>Ajouter</h5>
+                    {{ form_start(thematicForm, {'attr': {'novalidate' : 'novalidate'}}) }}
+                    {{ form_row(thematicForm.name) }}
+                    <div class='mt-3 d-grid gap-2 d-md-flex justify-content-md-end'>
+                        <button type='submit' class='btn btn-primary'>Ajouter</button>
+                    </div>
+                    {{ form_end(thematicForm) }}
+                </div>
+            </div>
+            <a href='{{ path('app.admin.dashboard') }}' class='btn btn-primary'>Retour</a>
+        </div>
+    </div>
+{% endblock %}

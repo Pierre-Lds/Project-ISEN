@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nouveau projet{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-75'>
+            <h2 class='fw-bold mx-auto text-center'>Ajouter un projet</h2><br>
+            {{ form_start(projectForm, {'attr': {'novalidate' : 'novalidate'}}) }}
+            {{ form_row(projectForm.title) }}
+            <div class='row'>
+                <div class='col-md-4'>{{ form_row(projectForm.id_thematic) }}</div>
+                <div class='col-md-4'>{{ form_row(projectForm.technical_domains) }}</div>
+                <div class='col-md-4'>{{ form_row(projectForm.id_professional_domain) }}</div>
+            </div>
+            <div class='row'>
+                <div class='col-md-3'>{{ form_row(projectForm.id_teacher) }}</div>
+                <div class='col-md-2'>{{ form_row(projectForm.year) }}</div>
+            </div>
+            {{ form_row(projectForm.description) }}
+            {{ form_row(projectForm.is_taken) }}
+            <div class='mt-3 d-grid gap-2 d-md-flex justify-content-md-end'>
+                <button type='submit' class='btn btn-primary'>Créer</button>
+            </div>
+            {{ form_end(projectForm) }}
+            <a href='{{ path('app.teacher.projectsRead') }}' class='btn btn-primary'>Retour</a>
+        </div>
+    </div>
+{% endblock %}

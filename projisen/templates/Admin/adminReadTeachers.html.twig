@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block title %}Voir les enseignants{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-100'>
+            <h2 class='fw-bold mx-auto text-center'>Voir les enseignants</h2>
+            {% for message in app.flashes('success') %}
+                <div class='alert alert-success mt-5'>{{ message }}</div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class='alert alert-danger mt-5'>{{ message }}</div>
+            {% endfor %}
+            <table class='table table-striped  my-5'>
+                <thead>
+                <tr>
+                    <th scope='col'>#</th>
+                    <th scope='col'>Prénom</th>
+                    <th scope='col'>Nom</th>
+                    <th scope='col'>Identifiant</th>
+                    <th scope='col'>Administrateur</th>
+                    <th scope='col'>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for staff in staffs %}
+                    <tr>
+                        <th scope='row'>{{ staff.id }}</th>
+                        <td>{{ staff.getFirstName() }}</td>
+                        <td>{{ staff.getLastName() }}</td>
+                        <td>{{ staff.username }}</td>
+                        <td>{% if staff.getIsAdmin() == true %}Oui{% else %}Non{% endif %}</td>
+                        <td>
+                            <a href='{{ path('app.admin.teacherRead',{id: staff.id}) }}' class='btn btn-primary'>Voir</a>
+                            <a href='{{ path('app.admin.teacherUpdate',{id: staff.id}) }}' class='btn btn-primary'>Editer</a>
+                            <form method='post' action='{{ path('app.admin.teacherDelete',{id: staff.id}) }}' onsubmit='return confirm("Supprimer le projet ?")' style='display: inline-block'>
+                                <input type='hidden' name='_method' value='DELETE'>
+                                <input type='hidden' name='_token' value='{{ csrf_token('delete' ~ staff.id) }}'>
+                                <button class='btn btn-secondary'>Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <a href='{{ path('app.admin.teacherCreate') }}' class='btn btn-primary'>Ajouter un enseignant</a>
+        </div>
+    </div>
+{% endblock %}

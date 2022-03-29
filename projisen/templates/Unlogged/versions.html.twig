@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}Voir les versions{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-75'>
+            <h2 class='fw-bold mx-auto text-center'>Voir les versions</h2><br>
+            <table class='table'>
+                <thead>
+                    <th scope='col'>Version</th>
+                    <th scope='col'>Description</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope='row'>V.1.0</th>
+                        <td>Version basique : Gestion des 3 utilisateurs, des projets et composantes associées...</td>
+                    </tr>
+                    <tr>
+                        <th scope='row'>V.1.1</th>
+                        <td>Communication avec les fichiers .csv : export et import de données</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href='{{ path('app.homepage') }}' class='btn btn-primary'>Retour</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}Choix des binômes{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto'>
+            <h2 class='fw-bold mx-auto text-center'>Voir les choix des binômes</h2><br>
+            <table class='table table-striped  my-5'>
+                <thead>
+                <tr>
+                    <th scope='col'>#</th>
+                    <th scope='col'>Étudiant #1</th>
+                    <th scope='col'>Étudiant #2</th>
+                    <th scope='col'>Projet #1</th>
+                    <th scope='col'>Projet #2</th>
+                    <th scope='col'>Projet #3</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for wish in wishes %}
+                    <tr>
+                        <td>{{ wish.id }}</td>
+                        <td>{{ wish.getIdMainStudent() }}</td>
+                        <td>{{ wish.getIdMainStudent().getIdPair() }}</td>
+                        <td>{{ wish.getIdProject1() }}</td>
+                        <td>{{ wish.getIdProject2() }}</td>
+                        <td>{{ wish.getIdProject3() }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

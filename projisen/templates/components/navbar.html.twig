@@ -1,0 +1,111 @@
+<nav class='navbar navbar-expand-lg navbar-dark bg-dark mb-3'>
+    <div class='container-fluid'>
+        <a class='navbar-brand' href='{{ path('app.homepage') }}'>
+            <img src='{{ asset('ressources/icons/favicon.png') }}' alt='' width='30' height='30' class='d-inline-block align-text-top'>
+            Proj'ISEN
+        </a>
+        <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
+            <span class='navbar-toggler-icon'></span>
+        </button>
+        <div class='collapse navbar-collapse' id='navbarSupportedContent'>
+            <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+                <!-- START NAV ITEMS -->
+                <li class='nav-item'>
+                    <a class='nav-link' aria-current='page' href='{{ path('app.homepage') }}'>Accueil</a>
+                </li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') == true %}
+                <li class='nav-item'>
+                    <a class='nav-link' aria-current='page' href='{{ path('app.profile') }}'>Mon profil</a>
+                </li>
+                {% endif %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %} {% if 'ROLE_ADMIN' in app.user.roles %}
+                <li class='nav-item dropdown'>
+                    <a class='nav-link dropdown-toggle' href='{{ path('app.admin.dashboard') }}' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                        Espace administrateur
+                    </a>
+                    <ul class='dropdown-menu' aria-labelledby='navbarDropdown'>
+                        <li><a class='dropdown-item' href='{{ path('app.admin.dashboard') }}'>Espace administrateur</a></li>
+                        <li><hr class='dropdown-divider'></li>
+                        <li><a class='dropdown-item' href='{{ path('app.admin.studentsRead') }}'>Liste des étudiants</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.admin.studentCreate') }}'>Ajouter un étudiant</a></li>
+                        <li><hr class='dropdown-divider'></li>
+                        <li><a class='dropdown-item' href='{{ path('app.admin.teachersRead') }}'>Liste des enseignants</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.admin.teacherCreate') }}'>Ajouter un enseignant</a></li>
+                        <li><hr class='dropdown-divider'></li>
+                        <li><a class='dropdown-item' href='{{ path('app.teacher.projectsRead') }}'>Liste des projets</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.teacher.projectCreate') }}'>Ajouter un projet</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.admin.projectsGive') }}'>Attribuer un projet</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.admin.projectsLaunch') }}'>Exécuter l'algorithme</a></li>
+                        <li><hr class='dropdown-divider'></li>
+                        <li><a class='dropdown-item' href='{{ path('app.teacher.projectsReadWishes') }}'>Consulter les choix des binômes</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.teacher.projectsReadAttributed') }}'>Consulter les affectations des projets</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.teacher.pairsReadWithoutProject') }}'>Consulter les binômes sans affectation</a></li>
+                        <li><hr class='dropdown-divider'></li>
+                        <li><a class='dropdown-item' href='{{ path('app.teacher.pairsRead') }}'>Liste des binômes</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.admin.pairCreate') }}'>Ajouter un binôme</a></li>
+                        <li><hr class='dropdown-divider'></li>
+                        <li><a class='dropdown-item' href='{{ path('app.admin.professionalDomains') }}'>Liste des domaines professionnels</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.admin.thematics') }}'>Liste des thématiques</a></li>
+                    </ul>
+                </li>
+                {% endif %} {% endif %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %} {% if 'ROLE_TEACHER' in app.user.roles or 'ROLE_ADMIN' in app.user.roles %}
+                <li class='nav-item dropdown'>
+                    <a class='nav-link dropdown-toggle' href='{{ path('app.teacher.dashboard') }}' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                        Espace enseignant
+                    </a>
+                    <ul class='dropdown-menu' aria-labelledby='navbarDropdown'>
+                        <li><a class='dropdown-item' href='{{ path('app.teacher.dashboard') }}'>Espace enseignant</a></li>
+                        <li><hr class='dropdown-divider'></li>
+                        <li><a class='dropdown-item' href='{{ path('app.teacher.projectsRead') }}'>Consulter les projets</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.teacher.projectCreate') }}'>Créer un projet</a></li>
+                        <li><hr class='dropdown-divider'></li>
+                        <li><a class='dropdown-item' href='{{ path('app.teacher.pairsRead') }}'>Liste des binômes</a></li>
+                        <li><hr class='dropdown-divider'></li>
+                        <li><a class='dropdown-item' href='{{ path('app.teacher.projectsReadWishes') }}'>Consulter les choix des binômes</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.teacher.projectsReadAttributed') }}'>Consulter les affectations des projets</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.teacher.pairsReadWithoutProject') }}'>Consulter les binômes sans affectation</a></li>
+
+                    </ul>
+                </li>
+                {% endif %} {% endif %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %} {% if 'ROLE_STUDENT' in app.user.roles %}
+                <li class='nav-item dropdown'>
+                    <a class='nav-link dropdown-toggle' href='{{ path('app.student.dashboard') }}' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                        Espace étudiant
+                    </a>
+                    <ul class='dropdown-menu' aria-labelledby='navbarDropdown'>
+                        <li><a class='dropdown-item' href='{{ path('app.student.dashboard') }}'>Espace étudiant</a></li>
+                        <li><hr class='dropdown-divider'></li>
+                        <li><a class='dropdown-item' href='{{ path('app.student.projectsRead') }}'>Consulter les projets</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.student.projectsChoose') }}'>Choisir les projets</a></li>
+                        <li><hr class='dropdown-divider'></li>
+                        <li><a class='dropdown-item' href='{{ path('app.student.projectsReadWishes') }}'>Consulter le choix des binômes</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.student.projectsReadAttributed') }}'>Consulter les affectations des projets</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.student.pairsReadWithoutProject') }}'>Consulter les binômes sans affectation</a></li>
+                        <li><hr class='dropdown-divider'></li>
+                        <li><a class='dropdown-item' href='{{ path('app.student.pairsRead') }}'>Voir les binômes</a></li>
+                        <li><a class='dropdown-item' href='{{ path('app.student.pairCreate') }}'>Choisir son binôme</a></li>
+                    </ul>
+                </li>
+                {% endif %} {% endif %}
+            </ul>
+            <form class="d-flex">
+                <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+                    <!-- START NAV ITEMS -->
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') == false %}
+                    <li class='nav-item'>
+                        <a class='nav-link' aria-current='page' href='{{ path('app.login') }}'>Se connecter</a>
+                    </li>
+                    {% endif %}
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') == true %}
+                    <li class='nav-item'>
+                        <a class='nav-link' aria-current='page' href='{{ path('app.logout') }}'>Se déconnecter</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </form>
+            <!-- END NAV ITEMS -->
+        </div>
+    </div>
+</nav>

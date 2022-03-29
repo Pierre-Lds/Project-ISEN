@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block title %}Binômes sans affectation{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-75'>
+            <h2 class='fw-bold mx-auto text-center'>Binôme sans affectation</h2><br>
+            <table class='table table-striped  my-5'>
+                <thead>
+                <tr>
+                    <th scope='col'>Étudiant #1</th>
+                    <th scope='col'>Étudiant #2</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for pair in pairs %}
+                    <tr>
+                        <td>{{ pair }}</td>
+                        <td>{{ pair.getIdPair() }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block title %}Voir le projet{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-100'>
+            <h2 class='fw-bold mx-auto text-center'>{{ student.getFirstName()~" "~student.getLastName() }}</h2>
+            <table class='table my-5'>
+                <tbody class='border'>
+                <tr>
+                    <th scope='row' class='bg-light border'>Prénom</th>
+                    <td>{{ student.getFirstName() }}</td>
+                    <th scope='row' class='bg-light border'>Nom</th>
+                    <td>{{ student.getLastName() }}</td>
+                </tr>
+                <tr>
+                    <th scope='row' class='bg-light border'>ID</th>
+                    <td>{{ student.getId() }}</td>
+                    <th scope='row' class='bg-light border'>Nom d'utilisateur</th>
+                    <td>{{ student.getUsername() }}</td>
+                </tr>
+                <tr>
+                    <th scope='row' class='bg-light border'>Domaine professionnel</th>
+                    <td>{{ student.getIdProfessionalDomain() }}</td>
+                    <th scope='row' class='bg-light border'>Année de d'obtention du diplôme</th>
+                    <td>{{ student.getGraduationYear() }}</td>
+                </tr>
+                <tr>
+                    <th scope='row' class='bg-light border'>Responsable du binôme</th>
+                    <td>{{ student.getIsMainStudent() }}</td>
+                    <th scope='row' class='bg-light border'>Nom du binôme</th>
+                    <td>{{ student.getIdPair() }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <a href='{{ path('app.admin.studentsRead') }}' class='btn btn-primary'>Revenir à la liste</a>
+        </div>
+    </div>
+{% endblock %}
