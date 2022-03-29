@@ -268,7 +268,11 @@ class AdminController extends AbstractController {
      * @return Response
      * @Route("/admin/launch-project-attribution",name="app.admin.projectsLaunch")
      */
-    public function adminLaunchProjects() : Response {
+    public function adminLaunchProjects(Request $request) : Response {
+        if ($request->isMethod('POST')) {
+            exec("./scripts/algo/output/out false fromBD");
+            $this->addFlash('success','L\'algorithme s\'est exécuté avec succès.');
+        }
         return $this->render('Admin/adminLaunchProjects.html.twig');
     }
     /**

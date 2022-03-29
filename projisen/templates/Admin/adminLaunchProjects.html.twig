@@ -4,8 +4,13 @@
     <div class='container my-5'>
         <div class='shadow p-3 rounded mx-auto w-75'>
             <h2 class='fw-bold mx-auto text-center'>Lancer l'algorithme</h2><br>
+            {% for message in app.flashes('success') %}
+                <div class='alert alert-success'>{{ message }}</div>
+            {% endfor %}
             <div class='mt-3 d-grid gap-2 d-md-flex justify-content-md-center'>
-                <button class='btn btn-primary' type='submit'>Exécuter l'algorithme</button>
+                <form method='POST'>
+                    <button class='btn btn-primary' type='submit'>Exécuter l'algorithme</button>
+                </form>
             </div>
         </div>
     </div>
