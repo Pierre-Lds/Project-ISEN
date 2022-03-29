@@ -16,7 +16,10 @@ php bin/console doctrine:database:create
 php bin/console make:migration
 php bin/console doctrine:migrations:migrate
 ```
-- Compile C++ files with g++
+- Compile C++ files with g++, go to /projisen/public/scripts and differents folders with makefiles, then run :
+```bash
+make
+```
 - To start creating your user's accounts, enter in the database (staff table) :
 ```
 id | username | roles | password | first_name | last_name | is_admin
