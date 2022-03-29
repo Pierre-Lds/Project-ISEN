@@ -401,4 +401,31 @@ class AdminController extends AbstractController {
         }
         return $this->redirectToRoute('app.admin.professionalDomains');
     }
+    // CSV
+    /**
+     * @return Response
+     * @Route("/admin/populate-with-csv",name="app.admin.csvPopulation")
+     */
+    public function adminCSVPopulation(Request $request) : Response {
+        if ($request->isMethod('POST')) {
+            exec("./scripts/csvPopulation/out populateDBWithCSV");
+            $this->addFlash('success','L\'import de données s\'est exécuté avec succès.');
+        }
+        return $this->render('Admin/adminPopulateWithCSV.html.twig');
+    }
+    /**
+     * @return Response
+     * @Route("/admin/get-csv",name="app.admin.getCSV")
+     */
+    public function adminGetCSV(Request $request) : Response {
+        if ($request->isMethod('POST')) {
+            exec("./scripts/csvPopulation/out exportToCSV student");
+            exec("./scripts/csvPopulation/out exportToCSV staff");
+            exec("./scripts/csvPopulation/out exportToCSV thematic");
+            exec("./scripts/csvPopulation/out exportToCSV project");
+            exec("./scripts/csvPopulation/out exportToCSV domainePro");
+            $this->addFlash('success','L\'export de données s\'est exécuté avec succès.');
+        }
+        return $this->render('Admin/adminGetCSV.html.twig');
+    }
 }

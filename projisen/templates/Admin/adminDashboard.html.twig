@@ -127,6 +127,23 @@
                     </div>
                 </a>
             </nav>
+            <h5 class='fw-bold mx-auto my-3 text-start'>CSV</h5>
+            <nav class='d-grid gap-3'>
+                <a href='{{ path('app.admin.csvPopulation') }}' class='btn btn-hover-light d-flex gap-3 py-2 px-3 lh-sm bg-light border'>
+                    <i class='bi bi-file-earmark-arrow-up-fill' style='font-size: 2em;'></i>
+                    <div class='text-start'>
+                        <strong class='d-block'>Populer avec des CSV</strong>
+                        <small>Remplir la base de données avec des fichiers CSV.</small>
+                    </div>
+                </a>
+                <a href='{{ path('app.admin.getCSV') }}' class='btn btn-hover-light d-flex gap-3 py-2 px-3 lh-sm bg-light border'>
+                    <i class='bi bi-file-earmark-arrow-down-fill' style='font-size: 2em;'></i>
+                    <div class='text-start'>
+                        <strong class='d-block'>Récupérer les CSV</strong>
+                        <small>Sauvegarder la base de données dans des fichiers CSV.</small>
+                    </div>
+                </a>
+            </nav>
         </div>
     </div>
 {% endblock %}

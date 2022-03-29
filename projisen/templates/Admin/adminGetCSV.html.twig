@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %}Population avec des CSV{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-75'>
+            <h2 class='fw-bold mx-auto text-center'>Population avec des CSV</h2><br>
+            {% for message in app.flashes('success') %}
+                <div class='alert alert-success'>{{ message }}</div>
+            {% endfor %}
+            <h4>1/ Exécuter l'algorihme</h4>
+            <div class='mt-3 d-grid gap-2 d-md-flex justify-content-md-center'>
+                <form method='POST'>
+                    <button class='btn btn-primary' type='submit'>Exécuter l'algorithme</button>
+                </form>
+            </div>
+            <h4>2/ Télécharger les fichiers CSV</h4>
+            <ul class='list-group mb-3'>
+                <li class='list-group-item'>
+                    <a href="{{ asset('scripts/csvPopulation/exportToCSV/CSV/CSVThematic.csv') }}" class='link-dark'>Thématiques</a>
+                </li>
+                <li class='list-group-item'>
+                    <a href="{{ asset('scripts/csvPopulation/exportToCSV/CSV/CSVDomainePro.csv') }}" class='link-dark'>Domaines professionels</a>
+                </li>
+                <li class='list-group-item'>
+                    <a href="{{ asset('scripts/csvPopulation/exportToCSV/CSV/CSVStaff.csv') }}" class='link-dark'>Enseignants</a>
+                </li>
+                <li class='list-group-item'>
+                    <a href="{{ asset('scripts/csvPopulation/exportToCSV/CSV/CSVProject.csv') }}" class='link-dark'>Projets</a>
+                </li>
+                <li class='list-group-item'>
+                    <a href="{{ asset('scripts/csvPopulation/exportToCSV/CSV/CSVStudent.csv') }}" class='link-dark'>Étudiants</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
