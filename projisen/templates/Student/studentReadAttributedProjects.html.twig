@@ -11,7 +11,6 @@
                     <th scope='col'>Étudiant #2</th>
                     <th scope='col'>Projet</th>
                     <th scope='col'>Enseignant</th>
-                    <th scope='col'>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -21,13 +20,6 @@
                         <td>{{ pair.getIdPair() }}</td>
                         <td>{{ pair.getIdProject() }}</td>
                         <td>{{ pair.getIdProject().getIdTeacher() }}</td>
-                        <td>
-                            <form method='post' action='{{ path('app.admin.projectsUnattribute',{id: pair.getId()}) }}' onsubmit='return confirm("Oter le projet ?")' style='display: inline-block'>
-                                <input type='hidden' name='_method' value='DELETE'>
-                                <input type='hidden' name='_token' value='{{ csrf_token('delete' ~ pair.id) }}'>
-                                <button class='btn btn-secondary'>Supprimer</button>
-                            </form>
-                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

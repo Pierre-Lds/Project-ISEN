@@ -10,6 +10,7 @@
         {% for message in app.flashes('error') %}
             <div class='alert alert-danger'>{{ message }}</div>
         {% endfor %}
+        {% if app.user.getIdProject() == null and app.user.getIdPair() != null %}
         {{ form_start(projectWishesForm) }}
             {{ form_row(projectWishesForm.id_main_student)}}
             {{ form_row(projectWishesForm.id_project_1) }}
@@ -19,6 +20,9 @@
             <button type='submit' class='btn btn-primary'>Valider</button>
         </div>
         {{ form_end(projectWishesForm) }}
+        {% else %}
+            <p>Un projet vous a déjà été attribué ou vous devez être dans un binôme afin de choisir vos projets.</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

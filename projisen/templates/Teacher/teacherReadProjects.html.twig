@@ -24,6 +24,7 @@
                 </thead>
                 <tbody>
                 {%  for project in projects %}
+                    {% if project.getIdTeacher() == app.user %}
                     <tr>
                         <th scope='row'>{{ project.id }}</th>
                         <td>{{ project.title }}</td>
@@ -38,16 +39,34 @@
                         <td>{% if project.istaken == 1 %}Oui{% else %}Non{% endif %}</td>
                         <td>{{ project.year }}</td>
                         <td>
-                            {% if app.user == project.idteacher or app.user.IsAdmin%}
                             <a href='{{ path('app.teacher.projectUpdate',{id: project.id}) }}' class='btn btn-primary'>Editer</a>
                             <form method='post' action='{{ path('app.teacher.projectDelete',{id: project.id}) }}' onsubmit='return confirm("Supprimer le projet ?")' style='display: inline-block'>
                                 <input type='hidden' name='_method' value='DELETE'>
                                 <input type='hidden' name='_token' value='{{ csrf_token('delete' ~ project.id) }}'>
                                 <button class='btn btn-secondary'>Supprimer</button>
                             </form>
-                            {% endif %}
                         </td>
                     </tr>
+                    {% endif %}
+                {% endfor %}
+                {%  for project in projects %}
+                    {% if project.getIdTeacher() != app.user %}
+                        <tr>
+                            <th scope='row'>{{ project.id }}</th>
+                            <td>{{ project.title }}</td>
+                            <td>{{ project.idteacher }}</td>
+                            <td>{{ project.idthematic }}</td>
+                            <td>
+                                {% for professionalDomain in project.getIdProfessionalDomain() %}
+                                    {{ professionalDomain }}
+                                    {% if professionalDomain != project.getIdProfessionalDomain()|last %},{% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>{% if project.istaken == 1 %}Oui{% else %}Non{% endif %}</td>
+                            <td>{{ project.year }}</td>
+                            <td></td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
