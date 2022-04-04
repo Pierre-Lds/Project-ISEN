@@ -71,6 +71,14 @@ class StaffRepository extends ServiceEntityRepository implements PasswordUpgrade
             ;
     }
 
+    public function findAllWithPwd($pwd) {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.password = :pwd')
+            ->setParameter('pwd', $pwd)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Staff[] Returns an array of Staff objects
     //  */

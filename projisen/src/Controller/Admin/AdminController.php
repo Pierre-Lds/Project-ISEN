@@ -291,7 +291,7 @@ class AdminController extends AbstractController {
             $sstudent = $student->getIdPair();
             $sstudent->setIdProject($project);
             $this->em->flush();
-            return $this->redirectToRoute('app.admin.projectsReadAttributed');
+            return $this->redirectToRoute('app.teacher.projectsReadAttributed');
         }
         return $this->render('Admin/adminGiveProjects.html.twig',['giveProjectForm'=>$giveProjectForm->createView()]);
     }
@@ -406,9 +406,18 @@ class AdminController extends AbstractController {
      * @return Response
      * @Route("/admin/populate-with-csv",name="app.admin.csvPopulation")
      */
-    public function adminCSVPopulation(Request $request) : Response {
+    public function adminCSVPopulation(Request $request, UserPasswordHasherInterface $passwordHasher) : Response {
         if ($request->isMethod('POST')) {
             exec("./scripts/csvPopulation/out populateDBWithCSV");
+            $students = $this->em->getRepository(Student::class)->findAllWithPwd('test');
+            $staff = $this->em->getRepository(Staff::class)->findAllWithPwd('root');
+            foreach ($students as $student) {
+                $student->setPassword($passwordHasher->hashPassword($student,'test'));
+            }
+            foreach ($staff as $staf) {
+                $staf->setPassword($passwordHasher->hashPassword($staf,'root'));
+            }
+            $this->em->flush();
             $this->addFlash('success','L\'import de données s\'est exécuté avec succès.');
         }
         return $this->render('Admin/adminPopulateWithCSV.html.twig');

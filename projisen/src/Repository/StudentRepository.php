@@ -109,6 +109,14 @@ class StudentRepository extends ServiceEntityRepository implements PasswordUpgra
             ->getResult();
     }
 
+    public function findAllWithPwd($pwd) {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.password = :pwd')
+            ->setParameter('pwd', $pwd)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Student[] Returns an array of Student objects
     //  */

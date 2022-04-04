@@ -24,7 +24,7 @@
                         <tr>
                             <td>{{ student.getFirstName()~" "~student.getLastName() }}</td>
                             <td>{{ student.getIdPair() }}</td>
-                            <td> {% if app.user == student.getIdPair() or app.user == student %}
+                            <td> {% if app.user == student.getIdPair() or app.user == student and app.user.getIdProject() == null %}
                                 <form method='post' action='{{ path('app.student.pairDelete',{id: student.id}) }}' onsubmit='return confirm("Supprimer le binôme ?")' style='display: inline-block'>
                                     <input type='hidden' name='_method' value='DELETE'>
                                     <input type='hidden' name='_token' value='{{ csrf_token('delete' ~ student.id) }}'>
