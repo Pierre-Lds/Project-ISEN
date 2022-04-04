@@ -24,7 +24,7 @@
                 </thead>
                 <tbody>
                 {%  for project in projects %}
-                    {% if project.getIdTeacher() == app.user %}
+                    {% if project.getIdTeacher() == app.user or 'ROLE_ADMIN' in app.user.roles %}
                     <tr>
                         <th scope='row'>{{ project.id }}</th>
                         <td>{{ project.title }}</td>
@@ -50,7 +50,7 @@
                     {% endif %}
                 {% endfor %}
                 {%  for project in projects %}
-                    {% if project.getIdTeacher() != app.user %}
+                    {% if project.getIdTeacher() != app.user and 'ROLE_ADMIN' not in app.user.roles%}
                         <tr>
                             <th scope='row'>{{ project.id }}</th>
                             <td>{{ project.title }}</td>

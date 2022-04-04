@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %}Suppression des données{% endblock %}
+{% block body %}
+    <div class='container my-5'>
+        <div class='shadow p-3 rounded mx-auto w-75'>
+            <h2 class='fw-bold mx-auto text-center'>Suppression des données</h2><br>
+            {% for message in app.flashes('success') %}
+                <div class='alert alert-success'>{{ message }}</div>
+            {% endfor %}
+            <p>Attention, la suppression de données est définitive et irréversible. Toutes les données seront effacées et pas uniquement celles de l'année en cours.</p>
+            <div class='mt-3 d-grid gap-2 d-md-flex justify-content-md-center'>
+                <form method='POST'>
+                    <button class='btn btn-danger' type='submit'>Supprimer les données</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

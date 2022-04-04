@@ -437,4 +437,15 @@ class AdminController extends AbstractController {
         }
         return $this->render('Admin/adminGetCSV.html.twig');
     }
+    /**
+     * @return Response
+     * @Route("/admin/delete-data",name="app.admin.deleteData")
+     */
+    public function adminDeleteData(Request $request) : Response {
+        if ($request->isMethod('POST')) {
+            exec("./scripts/csvPopulation/out deleteAll");
+            $this->addFlash('success','La suppression de données s\'est exécuté avec succès.');
+        }
+        return $this->render('Admin/adminDeleteData.html.twig');
+    }
 }
