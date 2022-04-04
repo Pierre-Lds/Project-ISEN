@@ -409,6 +409,7 @@ class AdminController extends AbstractController {
     public function adminCSVPopulation(Request $request, UserPasswordHasherInterface $passwordHasher) : Response {
         if ($request->isMethod('POST')) {
             exec("./scripts/csvPopulation/out populateDBWithCSV");
+            exec("./scripts/csvPopulation/out populateWishes");
             $students = $this->em->getRepository(Student::class)->findAllWithPwd('test');
             $staff = $this->em->getRepository(Staff::class)->findAllWithPwd('root');
             foreach ($students as $student) {

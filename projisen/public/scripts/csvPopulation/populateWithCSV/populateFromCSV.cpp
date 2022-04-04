@@ -113,7 +113,7 @@ void populateThematicTable(){
             driver = get_driver_instance();
             con = driver->connect("tcp://127.0.0.1:3306", USERNAME, PASSWORD);
             // Connexion to the database :
-            con->setSchema("projetM1DataBase");
+            con->setSchema("projisen");
             // First step : counting how much vertices we have
             for(int i = 1; i<vect.size(); i++){
                 if(vect[i][0].compare(vect[i][0].size() - 1, 1, "\r") == 0){
@@ -123,11 +123,11 @@ void populateThematicTable(){
                 //First we check if the thematic is already in the database :
                 stmt = con->createStatement();
                 sql::SQLString checkDb;
-                checkDb+= "SELECT id from thematic WHERE name = '";
+                checkDb+= "SELECT id from thematic WHERE name ='";
                 checkDb+= vect[i][0];
                 checkDb+= "';";
 
-                //cout << checkDb<< endl;
+                cout << checkDb<< endl;
 
                 sql::ResultSet *resultSet = stmt->executeQuery(checkDb);
                 //resultSet->next();
@@ -171,7 +171,7 @@ void populateDomainProTable(){
             driver = get_driver_instance();
             con = driver->connect("tcp://127.0.0.1:3306", USERNAME, PASSWORD);
             // Connexion to the database :
-            con->setSchema("projetM1DataBase");
+            con->setSchema("projisen");
             for(int i = 1; i<vect.size(); i++){
                 if(vect[i][0].compare(vect[i][0].size() - 1, 1, "\r") == 0){
                     vect[i][0].erase(vect[i][0].size() - 1);
@@ -251,7 +251,7 @@ void populateTeacherTable(){
             driver = get_driver_instance();
             con = driver->connect("tcp://127.0.0.1:3306", USERNAME, PASSWORD);
             // Connexion to the database :
-            con->setSchema("projetM1DataBase");
+            con->setSchema("projisen");
             // First step : counting how much vertices we have
             for(int i = 1; i<vect.size(); i++){
                 // We check that all the data is good :
@@ -263,12 +263,17 @@ void populateTeacherTable(){
                 // We create the user name :
                 string userName = createTeacherPseudo(vect[i][0], vect[i][1]);
 
+                std::transform(userName.begin(), userName.end(), userName.begin(),
+                               [](unsigned char c){ return std::tolower(c); });
+
                 // We check if it's already in our database :
                 stmt = con->createStatement();
                 sql::SQLString checkDb;
                 checkDb+= "SELECT id from staff WHERE username = '";
                 checkDb+= userName;
                 checkDb+= "';";
+
+
 
                 //cout << checkDb<< endl;
 
@@ -280,12 +285,12 @@ void populateTeacherTable(){
                 } else {
                     stmt = con->createStatement();
                     sql::SQLString req;
-                    req+= "INSERT INTO staff (first_name, last_name, pwd_hash, is_admin, username, roles) VALUES ( '";
+                    req+= "INSERT INTO staff (first_name, last_name, password, is_admin, username, roles) VALUES ( '";
                     req+= vect[i][0];
                     req+= "', '";
                     req+= vect[i][1] += "' , 'root' , 0, '";
                     req+= userName;
-                    req+= "',  \"['ROLE_TEACHER']\" );";
+                    req+= "',  '[\"ROLE_TEACHER\"]' );";
                     cout << req << endl;
                     stmt->executeUpdate(req);
                 }
@@ -360,7 +365,7 @@ void populateStudentTable(){
             driver = get_driver_instance();
             con = driver->connect("tcp://127.0.0.1:3306", USERNAME, PASSWORD);
             // Connexion to the database :
-            con->setSchema("projetM1DataBase");
+            con->setSchema("projisen");
             // First step : counting how much vertices we have
             for(int i = 1; i<vect.size(); i++){
                 // We check that all the data is good :
@@ -371,6 +376,9 @@ void populateStudentTable(){
                 }
                 // We create the user name :
                 string userName = createStudentUsername(vect[i][0], vect[i][1], stoi(vect[i][3]));
+
+                std::transform(userName.begin(), userName.end(), userName.begin(),
+                               [](unsigned char c){ return std::tolower(c); });
 
                 // We check if it's already in our database :
                 stmt = con->createStatement();
@@ -401,10 +409,10 @@ void populateStudentTable(){
 
                     stmt = con->createStatement();
                     sql::SQLString req;
-                    req+= "INSERT INTO student (username, roles, password, first_name, last_name, graduation_year, id_professional_domain_id)"
+                    req+= "INSERT INTO student (username, roles, password, first_name, last_name, graduation_year, id_professional_domain_id, is_main_student)"
                           " VALUES ( '";
                     req+= userName;
-                    req+= "',  \" ['ROLE_STUDENT'] \", 'test' , '";
+                    req+= "', '[\"ROLE_STUDENT\"]', 'test' , '";
                     req+= vect[i][0];
                     req+= "', '";
                     req+= vect[i][1];
@@ -412,6 +420,7 @@ void populateStudentTable(){
                     req+= vect[i][3];
                     req+= " , ";
                     req+= to_string(dpId);
+                    req+= ", 0";
                     req+= " );";
 
                     cout << req << endl;
@@ -456,7 +465,7 @@ void populateProjectTable(){
             driver = get_driver_instance();
             con = driver->connect("tcp://127.0.0.1:3306", USERNAME, PASSWORD);
             // Connexion to the database :
-            con->setSchema("projetM1DataBase");
+            con->setSchema("projisen");
             // First step : counting how much vertices we have
             for(int i = 1; i<vect.size(); i++){
                 // We check that all the data is good :
@@ -473,7 +482,7 @@ void populateProjectTable(){
                 checkDb+= vect[i][0];
                 checkDb+= "';";
 
-                //cout << checkDb<< endl;
+                cout << checkDb<< endl;
 
                 sql::ResultSet *resultSet3 = stmt->executeQuery(checkDb);
 
@@ -481,6 +490,7 @@ void populateProjectTable(){
                     // Already in the database :
                     cout << vect[i][0] << " : Already in database" << endl;
                 } else {
+                    cout << "here";
                     // We get the id of the thematic :
                     sql::ResultSet *resultSet;
                     stmt = con->createStatement();
@@ -505,7 +515,7 @@ void populateProjectTable(){
                     getIdTeacher+= "' ;";
                     resultSet2 = stmt->executeQuery(getIdTeacher);
                     resultSet2->next();
-                    int idTeacher = stoi(resultSet->getString(1));
+                    int idTeacher = stoi(resultSet2->getString(1));
 
                     stmt = con->createStatement();
                     sql::SQLString req;
@@ -526,9 +536,6 @@ void populateProjectTable(){
 
                     cout << req << endl;
                     stmt->executeUpdate(req);
-
-                    // TODO Fill the mapping table
-                    // We fill between the id of the project and the id of the professional domain :
 
                     // First we take the id of the project :
                     stmt = con->createStatement();
@@ -580,9 +587,151 @@ void populateProjectTable(){
             cout << " ERR" <<e.what() << endl;
         }
     }
+}
+
+// Populate the proejectWishes Table from a CSV.
+// We need to have the projectWishes Table empty to do this,
+void populateProjectWishesTable(){
+    std::filebuf fb;
+    if (fb.open (POPULATEPROJECTWISHES,std::ios::in))
+    {
+        std::istream is(&fb);
+        vector<vector<std::string>> vect = readCSV(is);
+        sql::Driver *driver;
+        sql::Connection *con;
+        sql::Statement *stmt;
+        try {
+            // Création of a new connexion :
+            driver = get_driver_instance();
+            con = driver->connect("tcp://127.0.0.1:3306", USERNAME, PASSWORD);
+            // Connexion to the database :
+            con->setSchema("projisen");
+            // First step : counting how much vertices we have
+            for(int i = 1; i<vect.size(); i++){
+                if(vect[i][0].compare(vect[i][0].size() - 1, 1, "\r") == 0){
+                    vect[i][0].erase(vect[i][0].size() - 1);
+                }
+
+                //For each line, we search the student, and the 3 project :
+                //Main student :
+                stmt = con->createStatement();
+                sql::SQLString searchMainStudent;
+                searchMainStudent+= "SELECT id from student WHERE last_name ='";
+                searchMainStudent+= vect[i][1];
+                searchMainStudent+= "';";
+                cout << searchMainStudent<< endl;
+                sql::ResultSet *mainStudentResultSet = stmt->executeQuery(searchMainStudent);
+
+                // Seconde student :
+                stmt = con->createStatement();
+                sql::SQLString searchSecondStudent;
+                searchSecondStudent+= "SELECT id from student WHERE last_name ='";
+                searchSecondStudent+= vect[i][2];
+                searchSecondStudent+= "';";
+                cout << searchSecondStudent<< endl;
+                sql::ResultSet *secondStudentResultSet = stmt->executeQuery(searchSecondStudent);
+
+                // Project 1 :
+                stmt = con->createStatement();
+                sql::SQLString searchProject1;
+                searchProject1+= "SELECT id from project WHERE title ='";
+                searchProject1+= vect[i][3];
+                searchProject1+= "';";
+                cout << searchProject1<< endl;
+                sql::ResultSet *project1ResultSet = stmt->executeQuery(searchProject1);
+
+                // Project 2 :
+                stmt = con->createStatement();
+                sql::SQLString searchProject2;
+                searchProject2+= "SELECT id from project WHERE title ='";
+                searchProject2+= vect[i][4];
+                searchProject2+= "';";
+                cout << searchProject2<< endl;
+                sql::ResultSet *project2ResultSet = stmt->executeQuery(searchProject2);
+
+                // Project 3 :
+                stmt = con->createStatement();
+                sql::SQLString searchProject3;
+                searchProject3+= "SELECT id from project WHERE title ='";
+                searchProject3+= vect[i][5];
+                searchProject3+= "';";
+                cout << searchProject3<< endl;
+                sql::ResultSet *project3ResultSet = stmt->executeQuery(searchProject3);
+
+                mainStudentResultSet->next();
+                int idMainStudent = stoi(mainStudentResultSet->getString(1));
+                int idSecondStudent = 0;
+                bool secondStudent;
+                if(secondStudentResultSet->next()){
+                    idSecondStudent = stoi(secondStudentResultSet->getString(1));
+                    secondStudent = true;
+                } else {
+                   secondStudent = false;
+                }
+
+                project1ResultSet->next();
+                int idProject1 = stoi(project1ResultSet->getString(1));
+
+                project2ResultSet->next();
+                int idProject2 = stoi(project2ResultSet->getString(1));
+
+                project3ResultSet->next();
+                int idProject3 = stoi(project3ResultSet->getString(1));
+
+                sql::SQLString insertReq;
+
+                // Insertion into project Wishes
+                insertReq+= "INSERT INTO project_wishes (id, id_project_1_id, id_project_2_id, id_project_3_id, id_main_student_id)"
+                       " VALUES ( ";
+                insertReq+= vect[i][0];
+                insertReq+= " , ";
+                insertReq+= to_string(idProject1);
+                insertReq+= " , ";
+                insertReq+= to_string(idProject2);
+                insertReq+= " , ";
+                insertReq+= to_string(idProject3);
+                insertReq+= " , ";
+                insertReq+= to_string(idMainStudent);
+                insertReq+= " );";
+
+                cout << insertReq << endl;
+
+                stmt->executeUpdate(insertReq);
+
+                // Update main Student :
+                if(secondStudent) {
+                    sql::SQLString updadeMainStudentReq;
+                    updadeMainStudentReq += "UPDATE student SET id_pair_id = ";
+                    updadeMainStudentReq += to_string(idSecondStudent);
+                    updadeMainStudentReq += ", is_main_student = 1 WHERE id = ";
+                    updadeMainStudentReq += to_string(idMainStudent);
+                    cout << updadeMainStudentReq << endl;
+                    stmt->executeUpdate(updadeMainStudentReq);
+
+                    sql::SQLString updateSenconStudentReq;
+                    updateSenconStudentReq += "UPDATE student SET id_pair_id = ";
+                    updateSenconStudentReq += to_string(idMainStudent);
+                    updateSenconStudentReq += ", is_main_student = 0 WHERE id = ";
+                    updateSenconStudentReq += to_string(idSecondStudent);
+                    cout << updateSenconStudentReq << endl;
+                    stmt->executeUpdate(updateSenconStudentReq);
 
 
-
+                } else {
+                    sql::SQLString updadeMainStudentReq;
+                    updadeMainStudentReq += "UPDATE student SET ";
+                    updadeMainStudentReq += "is_main_student = 1 WHERE id = ";
+                    updadeMainStudentReq += to_string(idMainStudent);
+                    cout << updadeMainStudentReq << endl;
+                    stmt->executeUpdate(updadeMainStudentReq);
+                }
+            }
+        }catch (sql::SQLException &e){
+            cout << "#ERR : SQLException in "<< __FILE__;
+            cout << "(" << __FUNCTION__ << ") on line " << __LINE__<< endl;
+            cout << " ERR" <<e.what() << endl;
+        }
+    }
 
 }
 
@@ -597,9 +746,11 @@ void populateTable(){
     // Professional Domain Table :
     populateDomainProTable();
 
+    cout << "Staff" << endl;
     // Populate the teacher table :
     populateTeacherTable();
 
+    cout << "student "<< endl;
     // Population of the student table :
     populateStudentTable();
 

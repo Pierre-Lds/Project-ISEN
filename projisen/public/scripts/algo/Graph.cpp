@@ -141,11 +141,11 @@ void Graph::setUpMatrix() {
 
         // Print of the table save :
         // Remove the comment to test the table :
-        //cout << "Save table : " << endl;
-        //for(int i = 0; i<numVertices; i++){
-        //    cout << i << " : " << save[i] << endl;
-        //}
-        //cout << endl;
+        cout << "Save table : " << endl;
+        for(int i = 0; i<numVertices; i++){
+           cout << i << " : " << save[i] << endl;
+        }
+        cout << endl;
 
 
 
@@ -157,7 +157,11 @@ void Graph::setUpMatrix() {
         // Connect the source to all the students
         stmt = con->createStatement();
         res = stmt->executeQuery("SELECT * FROM project_wishes as _message");
+
         while (res->next()){
+            // Count the number of iteration
+
+
             int verNum = stoi(res->getString(1));
             int numProj1 = stoi(res->getString(2));
             int numProj2 = stoi(res->getString(3));
@@ -166,34 +170,32 @@ void Graph::setUpMatrix() {
             int saveStudent;
 
             // We put the student inside the graph
-            for(int i = 0; i<= numVertices; i++){
+            for(int i = 0; i<= nbStudent; i++){
                 if(verNum == save[i]){
                     saveStudent = i;
                     addEdge(0, i, 5, 1);
                 }
             }
 
+
             // We connect the student to his project : , and the project to the well
 
-            for(int i = 0; i<= numVertices; i++){
+            for(int i = nbStudent; i<= numVertices; i++){
                 if(numProj1 == save[i]){
-                    addEdge(saveStudent, i, 1, 1);
-                    addEdge(i, numVertices-1, 4, 1);
+                        addEdge(saveStudent, i, 1, 1);
+                        addEdge(i, numVertices-1, 4, 1);
+                    }
+                    if(numProj2 == save[i]){
+                        addEdge(saveStudent, i, 2, 1);
+                        addEdge(i, numVertices-1, 4, 1);
+                    }
+                    if(numProj3 == save[i]){
+                        addEdge(saveStudent, i, 3, 1);
+                        addEdge(i, numVertices-1, 4, 1);
+                    }
                 }
-                if(numProj2 == save[i]){
-                    addEdge(saveStudent, i, 2, 1);
-                    addEdge(i, numVertices-1, 4, 1);
-                }
-                if(numProj3 == save[i]){
-                    addEdge(saveStudent, i, 3, 1);
-                    addEdge(i, numVertices-1, 4, 1);
-                }
+
             }
-
-
-
-
-        }
         con->close();
         // Test :
         printCostMatrix();
@@ -532,9 +534,9 @@ void Graph::putResultInDatabase() {
                     con->setSchema("projisen");
 
                     stmt = con->createStatement();
-                    SQLString req = "UPDATE student SET id_project = ";
+                    SQLString req = "UPDATE student SET id_project_id = ";
                     req.append(to_string(save[j]));
-                    req.append(" WHERE (SELECT id_main_student FROM project_wishes WHERE id = ");
+                    req.append(" WHERE (SELECT id_main_student_id FROM project_wishes WHERE id = ");
                     req.append(to_string(i));
                     req.append(") = id");
                     req.append(";");
@@ -600,11 +602,7 @@ int myStoi(string s) {
 
 void Graph::setUpMatrixFromCSV(string str) {
 
-
     vector<std::string> text = getNextLineAndSplitIntoTokens(str);
-
-
-
     // First we take the min student id, the max student id, the mix project id and the max project id
 
     int idMinStudent = INT32_MAX;
@@ -781,6 +779,77 @@ void Graph::setUpMatrixFromCSV(string str) {
     }
     printCostMatrix();
     printCapacityMatrix();
+}
+
+#include <ctime>
+
+int getYear(){
+    time_t ttime = time(0);
+    tm *local_time = localtime(&ttime);
+    return 1900 + local_time->tm_year - 1;
+}
+
+void Graph::clearDatabase() {
+
+    try{
+        sql::Driver *driver;
+        sql::Statement *stmt;
+        sql::ResultSet *res;
+        sql::Connection *con;
+
+        // Création of a new connexion :
+        driver = get_driver_instance();
+        con = driver->connect("tcp://127.0.0.1:3306", "root", "root");
+        con->setSchema("projisen");
+
+        // Put everything in the project_wishes_legacy :
+        stmt = con->createStatement();
+        res = stmt->executeQuery("SELECT * FROM project_wishes as _message");
+
+        int year = getYear();
+
+        int idMaxProject = 0;
+        while(res->next()){
+            int idProject1 = stoi(res->getString(2));
+            int idProject2 = stoi(res->getString(3));
+            int idProject3 = stoi(res->getString(4));
+            int idStudent = stoi(res->getString(5));
+
+            SQLString insertRequest;
+            insertRequest+= "INSERT INTO project_wishes_legacy (id_project_1, id_project_2, id_project_3, year, id_student) VALUES (";
+            insertRequest+= to_string(idProject1);
+            insertRequest+= ", ";
+            insertRequest+= to_string(idProject2);
+            insertRequest+= ", ";
+            insertRequest+= to_string(idProject3);
+            insertRequest+= ", ";
+            insertRequest+= to_string(year);
+            insertRequest+= ", ";
+            insertRequest+= to_string(idStudent);
+            insertRequest+= "); ";
+            stmt = con->createStatement();
+            cout << insertRequest << endl;
+            stmt->executeUpdate(insertRequest);
+        }
+
+        // Delete the projectWishes table :
+        stmt = con->createStatement();
+        SQLString req = "DELETE FROM project_wishes;";
+        stmt->execute(req);
+
+        // Putting back the autoIncrement to 1 :
+        stmt = con->createStatement();
+        SQLString autoIncrReq ="ALTER TABLE project_wishes AUTO_INCREMENT = 1;";
+        stmt->executeUpdate(autoIncrReq);
+    }
+    catch (sql::SQLException &e){
+        cout << "#ERR : SQLException in "<< __FILE__;
+        cout << "(" << __FUNCTION__ << ") on line " << __LINE__<< endl;
+        cout << " ERR" <<e.what() << endl;
+        cout << " ERR" << e.getSQLStateCStr() << endl;
+
+    }
+
 }
 
 

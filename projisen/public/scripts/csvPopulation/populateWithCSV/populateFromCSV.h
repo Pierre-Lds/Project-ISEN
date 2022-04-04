@@ -14,6 +14,7 @@ std::vector<std::vector<std::string>> readCSV(std::istream &in);
 
 void printTwoDimensionVector(vector<vector<std::string>> vect);
 
+void populateProjectWishesTable();
 
 void populateTable();
 

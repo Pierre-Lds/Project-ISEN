@@ -24,4 +24,6 @@
 #define POPULATESTUDENT "populateWithCSV/CSV/template_student.csv"
 #define POPULATEPROJECT "populateWithCSV/CSV/template_project.csv"
 
+#define POPULATEPROJECTWISHES "populateWithCSV/CSV/template_project_wishes.csv"
+
 #endif //RANDOMPOPULATION_DEFINE_H

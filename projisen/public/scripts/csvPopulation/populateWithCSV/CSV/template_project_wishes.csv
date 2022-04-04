@@ -1,0 +1,17 @@
+﻿id;Name_main_student;Name_second_student;id_project_1;id_project_2;id_project_3;
+1;Planquette;Lefebvre;Simulateur robotique en Python;Construire une voiture autonome;Installation et intégration du bras robotique OpenManipulator-X sur robot mobil;A
+2;Demousselle;Adde;Construire une voiture autonome;Actionner vos objets connectés par le regard;Vers un campus connecté;A
+3;Pubert;Chauvat;télécommande avec gestes;Construire une voiture autonome;Vers un campus connecté;A
+4;Charrier;Lopez;Voice cloning;Reconnaissance automatique de l attention des élèves via l intelligence artificielle;Localisation des objets 3D décrits par des requêtes textuelles dans les images;A
+5;Anselmet;Duplouy;Utilisation du pare-feu professionnel Stormshield sur le CyberRange Airbus;Développement d un bot d arbitrage pour les plateformes d échange de cryptomonnaies;Utilisation de l injecteur de traffic BreakingPoint sur le CyberRange Airbus;A
+6;Guillet;Loquet;Utilisation du pare-feu professionnel Stormshield sur le CyberRange Airbus;Réalité Augmentée à distance;Utilisation de l injecteur de traffic BreakingPoint sur le CyberRange Airbus;A
+7;Royer;Lemonnier;Utilisation de l injecteur de traffic BreakingPoint sur le CyberRange Airbus;Voice cloning;Voice cloning;A
+8;Aujeau;Mougenot;Reconnaissance automatique de l attention des élèves via l intelligence artificielle;Réalité Augmentée à distance;Localisation des objets 3D décrits par des requêtes textuelles dans les images;A
+9;Roux;Landais;Aide à la décision pour l affectation du personnel;Développement d un site web de ventes acceptant des paiements en criptomonnaies;Développement d un bot d arbitrage pour les plateformes d échange de cryptomonnaies;A
+10;Baudu;Fournier;Construire une voiture autonome;Vers un campus connecté;Actionner vos objets connectés par le regard;A
+11;Rey;Gagnaire;Développement d un bot d arbitrage pour les plateformes d échange de cryptomonnaies;Simulateur robotique en Python;Création d une interface (IHM) pour l édition dans un logiciel de simulation de réseaux de neurones;A
+12;Revol;Thibaudeau;Utilisation de l injecteur de traffic BreakingPoint sur le CyberRange Airbus;Reconnaissance automatique de l attention des élèves via l intelligence artificielle;Développement d un site web de ventes acceptant des paiements en criptomonnaies;A
+13;Pilliet;Boisleve;Actionner vos objets connectés par le regard;télécommande avec gestes;Vers un campus connecté;A
+14;Louyot;Allorent;Réalité Augmentée à distance;Exploration de politiques de transition écologique par Reinforcement Learning;Reconnaissance automatique de l attention des élèves via l intelligence artificielle;A
+15;Lasso;Montembault;Construire une voiture autonome;Création d une bibliothèque de communication avec le robot humanoïde Reachy;Vers un campus connecté;A
+16;Moriniere;;Simulateur robotique en Python;Création d une bibliothèque de communication avec le robot humanoïde Reachy;Création d une librairie de communication ModBus avec le bras robotique Niryo;A

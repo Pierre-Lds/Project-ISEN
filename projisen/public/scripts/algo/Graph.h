@@ -78,6 +78,10 @@ public:
     // Final function, we put the result into the database so that the PHP will make his treatement;
     void putResultInDatabase();
 
+    // Empty the project_wishes table,
+    // Fill the projectWishes legacy table
+    void clearDatabase();
+
 };
 
 

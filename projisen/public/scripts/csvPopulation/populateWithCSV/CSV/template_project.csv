@@ -1,0 +1,31 @@
+﻿Title;Teacher_last_name;Description;Technical_domains;Thématics;Domaine_pro;Year
+Traduction code Hex en langage assembleur;MENEU;Description;langage assembleur Cortex M;Systèmes Embarqués;Plusieurs domaines concernés;2022
+télécommande avec gestes;MENEU;Description;utilisation capteurs de proximité, couleur…;Image;Internet des objets;2022
+interface graphique pour communiquer avec Bootloader de STM32;MENEU;Description;programmation python et organisation microcontrôleur Cortex M;Informatique;Génie logiciel;2022
+Création d une librairie de communication ModBus avec le bras robotique Niryo;BEAUSSE;Description;Programmation C-C++ / Robotique;Informatique;Plusieurs domaines concernés;2022
+Simulation de réservations pour les entreprises de transport;LARDEUX;Description;Domain;Informatique;Indifférent;2022
+Aide à la décision pour l affectation du personnel;LARDEUX;Description;Domain;Informatique;Robotique - Usine du futur;2022
+Modèle de langage «extreme-scale» : réalisation d une application;VANWYNSBERGHE;Description;Domain;Informatique;Plusieurs domaines concernés;2022
+Création d une bibliothèque de communication avec le robot humanoïde Reachy;BEAUSSE;Description;Domain;Informatique;Plusieurs domaines concernés;2022
+Réalité Augmentée à distance;Aron;Description;Domain;Image;Plusieurs domaines concernés;2022
+Création d une bibliothèque de communication avec le robot mobile Turtlebot 3;BEAUSSE;Description;Domain;Systèmes Embarqués;Plusieurs domaines concernés;2022
+Installation et intégration du bras robotique OpenManipulator-X sur robot mobil;BEAUSSE;Description;Domain;Systèmes Embarqués;Plusieurs domaines concernés;2022
+Création d une interface (IHM) pour l édition dans un logiciel de simulation de réseaux de neurones;BEAUSSE;Description;Domain;Informatique;Plusieurs domaines concernés;2022
+Développement d un bot d arbitrage pour les plateformes d échange de cryptomonnaies;MONTERO;Description;Domain;Informatique;Plusieurs domaines concernés;2022
+Développement d un site web de ventes acceptant des paiements en criptomonnaies;MONTERO;Description;Domain;Informatique;Plusieurs domaines concernés;2022
+Exploration de politiques de transition écologique par Reinforcement Learning;VANWYNSBERGHE;Description;Domain;Informatique;Plusieurs domaines concernés;2022
+Banc de test automatisé pour la mesure de consommation;QUEUDET;Description;Domain;Systèmes Embarqués;Plusieurs domaines concernés;2022
+Restauration de fichiers audio;MAGDELAINE;Description;Domain;Informatique;Indifférent;2022
+Reconnaissance automatique de l attention des élèves via l intelligence artificielle;KARINE;Description;Domain;Image;Indifférent;2022
+Localisation des objets 3D décrits par des requêtes textuelles dans les images;KARINE;Description;Domain;Image;Indifférent;2022
+Embarquement des méthodes d intelligence artificielle pour l interprétation des images sous-marines;KARINE;Description;Domain;Image;Indifférent;2022
+Construire une voiture autonome;Jridi;Description;Domain;Systèmes Embarqués;Internet des objets;2022
+Vers un campus connecté;Jridi;Description;Domain;Systèmes Embarqués;Internet des objets;2022
+Actionner vos objets connectés par le regard;Jridi;Description;Domain;Systèmes Embarqués;Internet des objets;2022
+Voice cloning;Saumard;Description;Domain;Informatique;Indifférent;2022
+Speech translation;Saumard;Description;Domain;Informatique;Indifférent;2022
+Réalisation d une appli de documentation de projets DIY;BEGUIN;Description;Domain;Informatique;Plusieurs domaines concernés;2022
+Automatisation de l acquisition de données hyperspectrales;BEGUIN;Description;Domain;Informatique;Génie logiciel;2022
+Simulateur robotique en Python;SOULIGNAC;Description;Domain;Informatique;Robotique - Usine du futur;2022
+Utilisation du pare-feu professionnel Stormshield sur le CyberRange Airbus;Druon;Description;Domain;Informatique;Cybersécurité;2022
+Utilisation de l injecteur de traffic BreakingPoint sur le CyberRange Airbus;Druon;Description;Domain;Informatique;Cybersécurité;2022

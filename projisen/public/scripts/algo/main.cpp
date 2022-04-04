@@ -50,6 +50,7 @@ int main(int argc, char** argv){
 
             graph->putResultInDatabase();
 
+            graph->clearDatabase();
         }
     }
     // ./out trueOrFalse fromCSV CSVAdress

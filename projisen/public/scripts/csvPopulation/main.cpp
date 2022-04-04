@@ -1,9 +1,8 @@
 #include <iostream>
 #include <cstring>
-#include "randomPopulate/studentPopulation.h"
-#include "randomPopulate/staffPopulation.h"
 #include "exportToCSV/exportToCSV.h"
 #include "populateWithCSV/populateFromCSV.h"
+#include "suppress/suppressAll.h"
 
 using namespace std;
 
@@ -22,6 +21,14 @@ int main(int argc, char** argv) {
     //}
 
     // EXPORT TO CSV :
+
+    if(strcmp(argv[1], "deleteAll") == 0){
+        suppressAll();
+    }
+
+    if(strcmp(argv[1], "populateWishes") == 0){
+        populateProjectWishesTable();
+    }
 
     if(strcmp(argv[1], "populateDBWithCSV") == 0){
         populateTable();

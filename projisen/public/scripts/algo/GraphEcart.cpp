@@ -86,12 +86,7 @@ int* GraphEcart::bellamFord() {
     // Step 2 :
     // We release the edges :
     // We repeat our action V-times :
-
-
     srand((unsigned) time(0));
-
-
-
 
     for(int k=0; k< numVertices*numVertices; k++){
         int result =(rand() % 4);

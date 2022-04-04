@@ -6,10 +6,9 @@ CPPFLAGS = $(MYSQL_CONCPP_DIR) -L /usr/lib $(LDLIBS)
 NAME = out
 
 SRC =     main.cpp \
-			randomPopulate/studentPopulation.cpp	\
-			randomPopulate/staffPopulation.cpp		\
 			exportToCSV/exportToCSV.cpp	\
 			populateWithCSV/populateFromCSV.cpp	\
+			suppress/suppressAll.cpp	\
 
 
 
