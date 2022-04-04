@@ -5,41 +5,66 @@
         <div class='shadow p-3 rounded mx-auto w-100'>
             <a href='{{ path('app.homepage') }}' class='btn btn-primary'>Retour</a>
             <h2 class='fw-bold mx-auto text-center'>Documentation</h2><br>
-
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div id='accordion'>
+                {% if 'ROLE_ADMIN' in app.user.roles %}
                 <div class='card'>
                     <div class='card-header' id='headingOne'>
-                        <h5 class='mb-0'><button class='btn btn-link' data-bs-toggle='collapse' data-bs-target='#collapseOne' aria-expanded='true' aria-controls='collapseOne'>Ajouter des utilisateurs (étudiants/enseignants/administrateurs)</button></h5>
+                        <h5 class='mb-0'><button class='btn btn-link' data-bs-toggle='collapse' data-bs-target='#collapseOne' aria-expanded='true' aria-controls='collapseOne'>Partie Administrateurs</button></h5>
                     </div>
-
                     <div id='collapseOne' class='collapse show' aria-labelledby='headingOne' data-parent='#accordion'>
                         <div class='card-body'>
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <b>Créer un compte</b>
+                            <p>Pour créer un compte enseignant il faut se rendre dans "Espace administrateur > Ajouter un enseignant" puis renseigner son nom, prénom, mot de passe et indiquer s'il sera administrateur ou non.</p>
+                            <p>Dans le cadre de la création d'un compte étudiant, il faut se rendre dans "Espace administrateur > Ajouter un étudiant" puis renseigner son nom, prénom, mot de passe, année d'obtention du diplôme et domaine professionnel.</p>
+                            <b>Éditer un compte</b>
+                            <p>Pour éditer un compte, il faut se rendre dans "Espace administrateur > Voir les étudiants OU Voir les enseignants > Éditer" puis renseigner les nouvelles informations personnelles du compte.</p>
                         </div>
                     </div>
                 </div>
+                {% endif %}
+                {% if 'ROLE_ADMIN' in app.user.roles or 'ROLE_TEACHER' in app.user.roles %}
                 <div class='card'>
                     <div class='card-header' id='headingTwo'>
-                        <h5 class='mb-0'><button class='btn btn-link collapsed' data-bs-toggle='collapse' data-bs-target='#collapseTwo' aria-expanded='false' aria-controls='collapseTwo'>Collapsible Group Item #2</button></h5>
+                        <h5 class='mb-0'><button class='btn btn-link collapsed' data-bs-toggle='collapse' data-bs-target='#collapseTwo' aria-expanded='false' aria-controls='collapseTwo'>Partie Enseignants</button></h5>
                     </div>
                     <div id='collapseTwo' class='collapse' aria-labelledby='headingTwo' data-parent='#accordion'>
                         <div class='card-body'>
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <b>Créer un projet</b>
+                            <p>Pour créer un projet, il vous faudra vous rendre dans "Espace enseignant > Créer un projet" et renseigner le titre du projet, sa thématique (parmis une liste existante), les domaines techniques qu'il concerne, les domaines professionnels (parmis une liste de DP existants), une description ainsi que l'année correspondant au second semestre des M1.</p>
+                            <b>Mettre à jour un projet</b>
+                            <p>Pour mettre à jour un projet, il suffit de se rendre dans "Espace enseignant > Consulter les projets > Modifier" et renseigner les mêmes informations (mises à jour) que lors de la création du projet.</p>
+                            <b>Voir les voeux des binômes</b>
+                            <p>Pour voir les voeux des binômes, il suffit de se rendre dans "Espace enseignant > Consulter le choix des binômes" afin de voir si l'un de vos projets est souhaité par un ou plusieurs binômes.</p>
+                            <b>Voir les affectations des binômes</b>
+                            <p>Pour voir l'attribution des projets, il suffit de se rendre dans "Espace enseignant > Consulter les affectations des projets" afin de voir si votre nom est affilié à un projet et à un binôme.</p>
                         </div>
                     </div>
                 </div>
+                {% endif %}
+                {% if 'ROLE_ADMIN' in app.user.roles or 'ROLE_STUDENT' in app.user.roles %}
                 <div class='card'>
                     <div class='card-header' id='headingThree'>
-                        <h5 class='mb-0'><button class='btn btn-link collapsed' data-bs-toggle='collapse' data-bs-target='#collapseThree' aria-expanded='false' aria-controls='collapseThree'>Collapsible Group Item #3</button></h5>
+                        <h5 class='mb-0'><button class='btn btn-link collapsed' data-bs-toggle='collapse' data-bs-target='#collapseThree' aria-expanded='false' aria-controls='collapseThree'>Partie Étudiants</button></h5>
                     </div>
                     <div id='collapseThree' class='collapse' aria-labelledby='headingThree' data-parent='#accordion'>
                         <div class='card-body'>
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <b>Consulter les projets</b>
+                            <p>Pour consulter le détail d'un projet, il faut se rendre dans "Espace étudiant > Consulter les projets" puis cliquer sur le projet souhaité.</p>
+                            <b>Choisir son binôme</b>
+                            <p>Pour créer un binôme, il faut vous rendre dans "Espace étudiant > Choisir son binôme" puis sélectionner l'étudiant avec qui former un binôme. Seuls les étudiants libres sont sélectionnables.</p>
+                            <b>Formuler ses voeux</b>
+                            <p>Pour formuler ses voeux, il faut se rendre dans "Espace étudiant > Choisir les projets" puis sélectionner son binôme et les trois voeux (différents) priorisés.</p>
+                            <b>Voir les affectations des binômes</b>
+                            <p>Pour voir l'attribution des projets, il suffit de se rendre dans "Espace étudiant > Consulter les affectations des projets" afin de voir le projet affecté à votre binôme.</p>
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
-            
+            {% else %}
+                <p>Connectez vous afin d'avoir accès à la documentation relative à votre rôle.</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
