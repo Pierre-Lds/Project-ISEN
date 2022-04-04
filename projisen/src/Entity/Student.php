@@ -22,14 +22,6 @@ class Student implements UserInterface, PasswordAuthenticatedUserInterface {
     private $roles = [];
 
     #[ORM\Column(type: 'string' )]
-    /**
-     * @Assert\Length(
-     *     min = 8,
-     *     max = 30,
-     *     minMessage = "Enter more than 8 characters",
-     *     maxMessage = "Enter less than 30 characters",
-     * )
-     */
     private $password;
 
     #[ORM\Column(type: 'string', length: 255)]

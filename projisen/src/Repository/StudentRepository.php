@@ -83,6 +83,14 @@ class StudentRepository extends ServiceEntityRepository implements PasswordUpgra
             ->getResult();
     }
 
+    public function findStudentsById($id) {
+        return $this->createQueryBuilder('q')
+            ->andWhere('q.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findMainStudentsWithoutProject() {
         return $this->createQueryBuilder('q')
             ->andWhere('q.is_main_student = true')

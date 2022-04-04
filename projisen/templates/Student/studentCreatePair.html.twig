@@ -4,6 +4,9 @@
     <div class='container my-5'>
         <div class='shadow p-3 rounded mx-auto w-75'>
             <h2 class='fw-bold mx-auto text-center'>Choisir son binôme</h2><br>
+            {% if app.user.getIdPair() != null %}
+            <p>Vous avez déjà un binôme.</p>
+            {% else %}
             {{ form_start(pairForm) }}
             {{ form_row(pairForm.main_student) }}
             {{ form_row(pairForm.second_student) }}
@@ -11,7 +14,8 @@
                 <button type='submit' class='btn btn-primary'>Créer</button>
             </div>
             {{ form_end(pairForm) }}
-            <a href='{{ path('app.admin.pairsRead') }}' class='btn btn-primary'>Retour</a>
+            {% endif %}
+            <a href='{{ path('app.student.pairsRead') }}' class='btn btn-primary'>Retour</a>
         </div>
     </div>
 {% endblock %}
