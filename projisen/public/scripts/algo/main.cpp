@@ -8,7 +8,6 @@
 #include <cstring>
 #include <fstream>
 #include "Graph.h"
-#include "Test/Test.h"
 #include "GraphEcart.h"
 
 #include "global.h"

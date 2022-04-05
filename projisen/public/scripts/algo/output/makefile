@@ -7,7 +7,6 @@ NAME = out
 
 SRC =     ../main.cpp \
         ../Graph.cpp \
-        ../Test/Test.cpp	\
         ../GraphEcart.cpp	\
 
 OBJ = $(SRC:.cpp=.o)
