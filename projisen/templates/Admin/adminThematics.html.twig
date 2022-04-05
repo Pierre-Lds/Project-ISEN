@@ -24,7 +24,7 @@
                             <tr>
                                 <th scope='row'>{{ thematic.id }}</th>
                                 <td>{{ thematic.name }}</td>
-                                <td> {% if thematic.id != 1 %}
+                                <td> {% if thematic.name != "Aucune" %}
                                     <form method='post' action='{{ path('app.admin.thematicDelete',{id: thematic.id}) }}' onsubmit='return confirm("Supprimer la thématique ?")' style='display: inline-block'>
                                         <input type='hidden' name='_method' value='DELETE'>
                                         <input type='hidden' name='_token' value='{{ csrf_token('delete' ~ thematic.id) }}'>

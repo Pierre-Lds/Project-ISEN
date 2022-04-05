@@ -533,6 +533,14 @@ void Graph::putResultInDatabase() {
                     con = driver->connect("tcp://127.0.0.1:3306", "root", "root");
                     con->setSchema("projisen");
 
+                    // We set the project as is_taken : 1
+                    stmt = con->createStatement();
+                    SQLString reqProject = "UPDATE project SET is_taken = 1 WHERE id = ";
+                    reqProject+= (to_string(save[j]));
+                    reqProject+= " ;";
+                    stmt->execute(reqProject);
+
+
                     stmt = con->createStatement();
                     SQLString req = "UPDATE student SET id_project_id = ";
                     req.append(to_string(save[j]));

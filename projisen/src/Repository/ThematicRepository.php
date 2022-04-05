@@ -45,6 +45,15 @@ class ThematicRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByName($name) {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.name = :val')
+            ->setParameter('val', $name)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Thematic[] Returns an array of Thematic objects
     //  */

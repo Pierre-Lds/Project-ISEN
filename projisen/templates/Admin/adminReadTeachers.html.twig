@@ -32,11 +32,13 @@
                         <td>
                             <a href='{{ path('app.admin.teacherRead',{id: staff.id}) }}' class='btn btn-primary'>Voir</a>
                             <a href='{{ path('app.admin.teacherUpdate',{id: staff.id}) }}' class='btn btn-primary'>Editer</a>
-                            <form method='post' action='{{ path('app.admin.teacherDelete',{id: staff.id}) }}' onsubmit='return confirm("Supprimer le projet ?")' style='display: inline-block'>
+                            {% if app.user.getUsername() != staff.username %}
+                            <form method='post' action='{{ path('app.admin.teacherDelete',{id: staff.id}) }}' onsubmit='return confirm("Supprimer le profil ?")' style='display: inline-block'>
                                 <input type='hidden' name='_method' value='DELETE'>
                                 <input type='hidden' name='_token' value='{{ csrf_token('delete' ~ staff.id) }}'>
                                 <button class='btn btn-secondary'>Supprimer</button>
                             </form>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}

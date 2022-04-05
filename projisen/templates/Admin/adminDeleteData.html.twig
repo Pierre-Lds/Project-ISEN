@@ -7,7 +7,8 @@
             {% for message in app.flashes('success') %}
                 <div class='alert alert-success'>{{ message }}</div>
             {% endfor %}
-            <p>Attention, la suppression de données est définitive et irréversible. Toutes les données seront effacées et pas uniquement celles de l'année en cours.</p>
+            <p>Attention, la suppression de données est définitive et irréversible. Toutes les données seront effacées et pas uniquement celles de l'année en cours.<br>
+            Un compte {admin/admin} sera créé comme compte super utilisateur. Notez les identifiants de connexion avant de lancer l'écrasement des données.</p>
             <div class='mt-3 d-grid gap-2 d-md-flex justify-content-md-center'>
                 <form method='POST'>
                     <button class='btn btn-danger' type='submit'>Supprimer les données</button>

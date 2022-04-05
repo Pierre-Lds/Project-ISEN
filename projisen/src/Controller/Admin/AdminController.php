@@ -125,11 +125,15 @@ class AdminController extends AbstractController {
     public function adminDeleteStudent(Student $student, Request $request) : Response {
         if ($this->isCsrfTokenValid('delete'.$student->getId(), $request->get('_token'))) {
             $project = $student->getIdProject();
-            $project->setIsTaken(false);
+            if ($project != null) {
+                $project->setIsTaken(false);
+            }
             $pair = $student->getIdPair();
-            $pair->setIsMainStudent(false);
-            $pair->setIdPair(null);
-            $pair->setIdProject(null);
+            if ($pair != null) {
+                $pair->setIsMainStudent(false);
+                $pair->setIdPair(null);
+                $pair->setIdProject(null);
+            }
             $student->setIdPair(null);
             $this->em->remove($student);
             $this->em->flush();
@@ -262,7 +266,7 @@ class AdminController extends AbstractController {
         } else {
             $this->addFlash('error','Une erreur est survenue dans la suppression du binôme.');
         }
-        return $this->redirectToRoute('app.admin.projectsReadAttributed');
+        return $this->redirectToRoute('app.teacher.projectsReadAttributed');
     }
     /**
      * @return Response
@@ -270,7 +274,7 @@ class AdminController extends AbstractController {
      */
     public function adminLaunchProjects(Request $request) : Response {
         if ($request->isMethod('POST')) {
-            exec("./scripts/algo/output/out false fromBD");
+            exec("./scripts/algo/output/out false fromDB");
             $this->addFlash('success','L\'algorithme s\'est exécuté avec succès.');
         }
         return $this->render('Admin/adminLaunchProjects.html.twig');
@@ -360,8 +364,9 @@ class AdminController extends AbstractController {
     public function adminDeleteThematic(Request $request, Thematic $thematic) : Response {
         if ($this->isCsrfTokenValid('delete'.$thematic->getId(), $request->get('_token'))) {
             $projects = $this->projectRepository->findByThematic($thematic->getId());
+            $them = $this->em->getRepository(Thematic::class)->findByName("Aucune");
             foreach ($projects as $project) {
-                $project->setIdThematic($this->em->getRepository(Thematic::class)->find(1));
+                $project->setIdThematic($them[0]);
             }
             $this->em->remove($thematic);
             $this->em->flush();
@@ -442,10 +447,25 @@ class AdminController extends AbstractController {
      * @return Response
      * @Route("/admin/delete-data",name="app.admin.deleteData")
      */
-    public function adminDeleteData(Request $request) : Response {
+    public function adminDeleteData(Request $request, UserPasswordHasherInterface $passwordHasher) : Response {
         if ($request->isMethod('POST')) {
             exec("./scripts/csvPopulation/out deleteAll");
-            $this->addFlash('success','La suppression de données s\'est exécuté avec succès.');
+            $admin = new Staff();
+            $admin->setIsAdmin(true);
+            $admin->setRoles(['ROLE_ADMIN']);
+            $admin->setPassword($passwordHasher->hashPassword($admin,"admin"));
+            $admin->setFirstName("admin");
+            $admin->setLastName("admin");
+            $admin->setUsername("admin");
+            $this->em->persist($admin);
+            $thematic = new Thematic();
+            $thematic->setName("Aucune");
+            $this->em->persist($thematic);
+            $dp = new ProfessionalDomain();
+            $dp->setName("Indifférent");
+            $this->em->persist($dp);
+            $this->em->flush();
+            return $this->redirectToRoute('app.homepage');
         }
         return $this->render('Admin/adminDeleteData.html.twig');
     }

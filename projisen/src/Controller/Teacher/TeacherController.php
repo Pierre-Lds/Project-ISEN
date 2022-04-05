@@ -79,6 +79,10 @@ class TeacherController extends AbstractController {
      */
     public function teacherDeleteProject(Project $project, Request $request) : Response {
         if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->get('_token'))) {
+            $students = $project->getStudents();
+            foreach ($students as $student) {
+                $student->setIdProject(null);
+            }
             $this->em->remove($project);
             $this->em->flush();
             $this->addFlash('success','Le projet a été supprimé avec succès.');
