@@ -19,12 +19,13 @@ class PairFormType extends AbstractType {
         $this->studentRepository = $studentRepository;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('main_student', EntityType::class, ['class' => Student::class, 'choices' => $this->studentRepository->findStudentsById($this->security->getUser()->getId())])
-            ->add('second_student', EntityType::class, ['class' => Student::class, 'placeholder' => 'Pick a student', 'choices' => $this->studentRepository->findAllWithoutPair()])
-        ;
+    public function buildForm(FormBuilderInterface $builder, array $options): void {
+        $builder->add('second_student', EntityType::class, ['class' => Student::class, 'placeholder' => 'Pick a student', 'choices' => $this->studentRepository->findAllWithoutPair()]);
+        if ($this->security->getUser()->getRoles()[0] == 'ROLE_ADMIN') {
+            $builder->add('main_student', EntityType::class, ['class' => Student::class, 'placeholder' => 'Pick a student', 'choices' => $this->studentRepository->findAllWithoutPair()]);
+        } else {
+            $builder->add('main_student', EntityType::class, ['class' => Student::class, 'choices' => $this->studentRepository->findStudentsById($this->security->getUser()->getId())]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void

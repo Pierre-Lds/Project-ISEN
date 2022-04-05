@@ -337,7 +337,7 @@ class AdminController extends AbstractController {
         } else {
             $this->addFlash('error','Une erreur est survenue dans la suppression du binôme.');
         }
-        return $this->redirectToRoute('app.admin.pairsRead');
+        return $this->redirectToRoute('app.teacher.pairsRead');
     }
     // Thematics (CRUD)
     /**
