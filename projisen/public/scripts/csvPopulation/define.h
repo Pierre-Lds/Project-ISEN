@@ -17,12 +17,11 @@
 #define USERNAME "root"
 
 // File for population
-
-#define POPULATEDPFILE "populateWithCSV/CSV/template_professional_domain.csv"
-#define POPULATETHEMATIC "populateWithCSV/CSV/template_thematic.csv"
-#define POPULATESTAFF "populateWithCSV/CSV/template_staff.csv"
-#define POPULATESTUDENT "populateWithCSV/CSV/template_student.csv"
-#define POPULATEPROJECT "populateWithCSV/CSV/template_project.csv"
+#define POPULATEDPFILE "scripts/csvPopulation/populateWithCSV/CSV/template_professional_domain.csv"
+#define POPULATETHEMATIC "scripts/csvPopulation/populateWithCSV/CSV/template_thematic.csv"
+#define POPULATESTAFF "scripts/csvPopulation/populateWithCSV/CSV/template_staff.csv"
+#define POPULATESTUDENT "scripts/csvPopulation/populateWithCSV/CSV/template_student.csv"
+#define POPULATEPROJECT "scripts/csvPopulation/populateWithCSV/CSV/template_project.csv"
 
 #define POPULATEPROJECTWISHES "populateWithCSV/CSV/template_project_wishes.csv"
 
