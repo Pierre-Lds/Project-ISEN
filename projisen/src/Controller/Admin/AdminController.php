@@ -294,6 +294,14 @@ class AdminController extends AbstractController {
             $student->setIdProject($project);
             $sstudent = $student->getIdPair();
             $sstudent->setIdProject($project);
+            // Manage project wishes
+            $wishes = $this->em->getRepository(ProjectWishes::class)->findByStudentId($student->getId());
+            if ($wishes[0] != null) {
+                $wishes[0]->setIdProject1($project);
+                $wishes[0]->setIdProject2($project);
+                $wishes[0]->setIdProject3($project);
+            }
+            // End managing
             $this->em->flush();
             return $this->redirectToRoute('app.teacher.projectsReadAttributed');
         }
@@ -318,7 +326,7 @@ class AdminController extends AbstractController {
                 $secondStudent->setIdPair($mainStudent);
                 $this->em->flush();
             }
-            return $this->redirectToRoute('app.admin.pairsRead');
+            return $this->redirectToRoute('app.teacher.pairsRead');
         }
         return $this->render('Admin/adminCreatePair.html.twig',['pairForm'=>$pairForm->createView()]);
     }

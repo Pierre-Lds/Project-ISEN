@@ -26,7 +26,7 @@
                         <tr>
                             <td>{{ student.getFirstName()~" "~student.getLastName() }}</td>
                             <td>{{ student.getIdPair() }}</td>
-                            {% if app.user.IsAdmin %}
+                            {% if app.user.IsAdmin and student.getIdProject() == null %}
                                 <td>
                                     <form method='post' action='{{ path('app.admin.pairDelete',{id: student.id}) }}' onsubmit='return confirm("Supprimer le binôme ?")' style='display: inline-block'>
                                         <input type='hidden' name='_method' value='DELETE'>
