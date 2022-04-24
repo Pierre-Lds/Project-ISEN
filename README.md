@@ -10,6 +10,7 @@ C++ 17 / Symfony 5.4 / PHP 8.1
 ```bash
 composer install
 ```
+- Go to .env file and add your database informations
 - Generate the database with the following commands :
 ```bash
 php bin/console doctrine:database:create
